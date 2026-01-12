@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
+            background: #080808; font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
+        }
+
+        .glow {
+            position: absolute; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255, 117, 140, 0.15) 0%, transparent 70%);
+            filter: blur(80px); z-index: -1;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px; border-radius: 30px;
+            backdrop-filter: blur(20px); text-align: center; width: 90%; max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+
+        .mood-btn {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white; padding: 14px; border-radius: 15px; cursor: pointer; transition: 0.4s;
+            font-size: 0.95rem; font-weight: 300;
+        }
+
+        .mood-btn:hover { background: #ff758c; transform: translateY(-2px); }
+
+        #responseSection { display: none; animation: fadeIn 1.5s; margin-top: 20px; }
+        
+        .message-text { font-size: 1.1rem; line-height: 1.7; color: #ddd; text-align: left; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Hidden Audio Player */
+        #audioContainer { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="card" id="mainCard">
+    <div style="font-size: 0.8rem; color: #ffd700; margin-bottom: 15px; letter-spacing: 2px;" id="timer">Loading...</div>
+    
+    <div class="message-text">
+        "Yrr, jo kuch bhi hua uske liye <b style="color:#ff758c">I am really sorry</b>. Main tab itna mature nahi tha, par ab sirf ek fresh start chahta hoon.
+        <br><br>
+        Kya hum purani baatein bhool kar sirf ek <b>Best Friend</b> ki tarah dobara baat kar sakte hain?"
+    </div>
+
+    <div id="interaction">
+        <p style="font-size: 0.8rem; margin-top: 25px; color: #888;">Tumhe kaisa feel ho raha hai?</p>
+        <div class="btn-group">
+            <button class="mood-btn" onclick="handleResponse('angry')">Abhi bhi thoda gussa hoon 😤</button>
+            <button class="mood-btn" onclick="handleResponse('calm')">Theek hai, let's see... 🙂</button>
+            <button class="mood-btn" onclick="handleResponse('happy')">Dosti pakki! ✨</button>
+        </div>
+    </div>
+
+    <div id="responseSection">
+        <div style="font-size: 40px; margin-bottom: 10px;">🎵</div>
+        <p id="replyText" style="font-style: italic; color: #ff758c;"></p>
+        <p style="font-size: 0.8rem; color: #888;">(Ek calm song tumhare liye play ho raha hai...)</p>
+    </div>
+
+    <div id="audioContainer">
+        <iframe id="musicPlayer" width="0" height="0" src="" frameborder="0" allow="autoplay"></iframe>
+    </div>
+</div>
+
+<script>
+    function handleResponse(type) {
+        document.getElementById('interaction').style.display = 'none';
+        const section = document.getElementById('responseSection');
+        const reply = document.getElementById('replyText');
+        const player = document.getElementById('musicPlayer');
+        
+        section.style.display = 'block';
+
+        if(type === 'angry') {
+            reply.innerText = "I understand. Main tumhe thoda aur waqt dunga. Jab gussa thanda ho jaye, tab batana.";
+        } else {
+            if(type === 'calm') {
+                reply.innerText = "Thank you! Bas tumne baat sun li, mere liye wahi kaafi hai.";
+            } else {
+                reply.innerText = "Ye sunke sach mein bahut accha laga! Happy Birthday in advance! ✨";
+            }
+            // Playing a calm instrumental song (Lofi/Calm piano)
+            // Note: Autoplay depends on browser settings, it's better if they interact first (which they just did by clicking)
+            player.src = "https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"; 
+        }
+    }
+
+    // Timer Logic
+    const target = new Date('January 18, 2026 00:00:00').getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const diff = target - now;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('timer').innerText = `${d}D : ${h}H : ${m}M UNTIL 18 JAN`;
+    }, 1000);
+</script>
+
+</body>
+</html>
