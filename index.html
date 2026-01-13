@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Best Friend</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
-            background: #080808; font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
+            margin: 0; padding: 0; height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+            background: #050505; font-family: 'Poppins', sans-serif; color: white;
+            overflow: hidden; touch-action: manipulation;
         }
 
         .ambient-bg {
@@ -18,67 +22,86 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px; border-radius: 30px;
-            backdrop-filter: blur(20px); text-align: center; width: 90%; max-width: 450px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.9);
-            max-height: 90vh; overflow-y: auto;
+            padding: clamp(20px, 5vw, 35px);
+            border-radius: 25px;
+            backdrop-filter: blur(25px);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            animation: slideUp 0.8s ease-out;
+            position: relative;
         }
 
-        .profile-area {
-            position: relative; width: 110px; height: 110px; margin: 0 auto 20px;
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timer {
+            font-size: 0.7rem; color: #ffd700;
+            letter-spacing: 2px; margin-bottom: 20px;
+            font-weight: 600; text-transform: uppercase;
         }
 
         .profile-ring {
-            width: 100%; height: 100%; border-radius: 50%;
+            width: 90px; height: 90px; border-radius: 50%;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            display: flex; align-items: center; justify-content: center; padding: 3px;
-            animation: pulse 3s infinite;
+            margin: 0 auto 15px; display: flex; align-items: center;
+            justify-content: center; padding: 3px; animation: pulse 3s infinite;
         }
 
         .profile-pic {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #000;
+            width: 100%; height: 100%; border-radius: 50%;
+            object-fit: cover; border: 3px solid #000;
         }
 
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0.4); }
-            70% { box-shadow: 0 0 0 20px rgba(220, 39, 67, 0); }
+            70% { box-shadow: 0 0 0 15px rgba(220, 39, 67, 0); }
             100% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0); }
         }
 
         .emotional-msg {
-            font-size: 0.95rem; line-height: 1.8; color: #ddd; text-align: left;
-            margin-bottom: 20px; font-style: italic;
+            font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+            line-height: 1.6; color: #ddd; text-align: left;
+            margin-bottom: 20px; font-weight: 300;
         }
 
-        .btn-group { display: flex; flex-direction: column; gap: 12px; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
 
         .mood-btn {
-            background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white; padding: 14px; border-radius: 15px; cursor: pointer; transition: 0.3s;
-            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white; padding: 12px; border-radius: 12px;
+            cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .mood-btn:hover { background: #ff758c; border-color: #ff758c; transform: translateY(-3px); }
+        .mood-btn:active { transform: scale(0.95); background: #ff758c; }
 
-        #replyBox {
-            display: none; margin-top: 20px; animation: fadeIn 1s ease;
-        }
+        #replyBox { display: none; margin-top: 15px; animation: fadeIn 0.5s ease; }
 
         textarea {
-            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px; color: white; padding: 15px; font-family: 'Poppins'; resize: none; margin-bottom: 10px;
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; color: white; padding: 12px;
+            font-family: 'Poppins'; resize: none; margin-top: 10px; font-size: 0.9rem;
         }
 
         .send-btn {
-            background: #ff758c; border: none; color: white; padding: 10px 25px; border-radius: 50px; cursor: pointer;
+            background: #ff758c; border: none; color: white;
+            padding: 10px 30px; border-radius: 50px; cursor: pointer;
+            margin-top: 10px; font-weight: 600; width: 100%;
         }
 
-        .timer { font-size: 0.7rem; color: #ffd700; letter-spacing: 3px; margin-bottom: 20px; font-weight: 600; }
-        
-        .heart { position: absolute; pointer-events: none; animation: fly 3s linear forwards; }
-        @keyframes fly { to { transform: translateY(-100vh) scale(2); opacity: 0; } }
+        #statusMsg { font-size: 0.9rem; margin-bottom: 10px; color: #ff758c; font-weight: 500; }
+
+        .heart { position: absolute; pointer-events: none; animation: fly 3s linear forwards; font-size: 20px; z-index: 10; }
+        @keyframes fly { from { transform: translateY(0) scale(1); opacity: 1; } to { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #bgMusic { display: none; }
     </style>
 </head>
 <body>
@@ -86,95 +109,84 @@
 <div class="ambient-bg"></div>
 
 <div class="card">
-    <div class="timer" id="timer">Countdown Loading...</div>
+    <div class="timer" id="timer">Loading...</div>
 
-    <div class="profile-area">
-        <div class="profile-ring">
-            <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" 
-            onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
-        </div>
+    <div class="profile-ring">
+        <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" 
+        onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
     </div>
 
     <div class="emotional-msg">
-        "Yrr, pata nahi kahan se shuru karun. Main janta hoon mere behavior se tumhe dukh hua, aur uske liye main dil se maafi mangta hoon. 
+        "Yrr, main janta hoon mere behavior se tumhe dukh hua, uske liye I'm really sorry. 
         <br><br>
-        10th Board khatam hone mein bas thoda waqt bacha hai... kya hum ye bacha hua time gusse mein nikal denge? Hum dono CR hain, hamari dosti bahut khaas hai. Please, sab bhool kar sirf ek mauka de do... sirf best friends banne ke liye."
+        <b>Yrr 10th bahut jaldi khatam hone wali hai aur shayad agar tum mujhse gussa nahi hogi toh hum bahut saari acchi yaadein bhi bana sakte hain.</b> 
+        <br><br>
+        Hum dono CR hain, kya hum phir se best friends ban sakte hain?"
     </div>
 
     <div id="interaction">
         <div class="btn-group">
-            <button class="mood-btn" onclick="handleAction('angry')">Abhi bhi dil dukha hai 💔</button>
-            <button class="mood-btn" onclick="handleAction('maybe')">Theek hai, let's try... 🙂</button>
+            <button class="mood-btn" onclick="handleAction('angry')">Abhi dil dukha hai 💔</button>
+            <button class="mood-btn" onclick="handleAction('maybe')">Theek hai, let's try 🙂</button>
             <button class="mood-btn" onclick="handleAction('happy')">Dosti pakki! ❤️✨</button>
         </div>
     </div>
 
     <div id="replyBox">
-        <p id="statusMsg" style="color: #ff758c; font-weight: 500; margin-bottom: 15px;"></p>
-        <p style="font-size: 0.8rem; opacity: 0.6;">Kya tum mere liye kuch kehna chahti ho?</p>
-        <textarea id="userMsg" rows="3" placeholder="Yahan apna message likho..."></textarea>
-        <button class="send-btn" onclick="finish()">Send to Ujwal</button>
+        <form action="https://formspree.io/f/mjggvjqa" method="POST">
+            <div id="statusMsg"></div>
+            <textarea name="message" rows="3" placeholder="Yahan apna reply likho..." required></textarea>
+            <button type="submit" class="send-btn">Send Message</button>
+        </form>
     </div>
 </div>
 
-<audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
 </audio>
 
 <script>
     function handleAction(type) {
         const music = document.getElementById('bgMusic');
-        const interaction = document.getElementById('interaction');
-        const replyBox = document.getElementById('replyBox');
+        document.getElementById('interaction').style.display = 'none';
+        document.getElementById('replyBox').style.display = 'block';
         const status = document.getElementById('statusMsg');
 
-        interaction.style.display = 'none';
-        replyBox.style.display = 'block';
-
         if(type === 'angry') {
-            status.innerText = "I respect your feelings. Main hamesha wait karunga.";
+            status.innerText = "I understand. Main wait karunga.";
         } else {
-            status.innerText = "Ye dekh kar mera din ban gaya! Thank you. ❤️";
-            music.play(); // No ads, direct play
+            status.innerText = "Ye sunke sukoon mila. ❤️";
+            music.play().catch(e => console.log("Music play blocked"));
             spawnHearts();
         }
     }
 
     function spawnHearts() {
-        for(let i=0; i<20; i++) {
+        for(let i=0; i<15; i++) {
             setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.left = Math.random() * 90 + 5 + 'vw';
                 heart.style.top = '100vh';
-                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
                 document.body.appendChild(heart);
                 setTimeout(() => heart.remove(), 3000);
-            }, i * 150);
+            }, i * 200);
         }
     }
 
-    function finish() {
-        const text = document.getElementById('userMsg').value;
-        if(text.trim() !== "") {
-            alert("Tera message mere pass (mental folder) mein save ho gaya! ✨ Thank you for replying.");
-            location.reload();
-        } else {
-            alert("Please kuch likh kar send karo! 😊");
-        }
-    }
-
-    // Timer logic
-    const target = new Date('January 18, 2026 00:00:00').getTime();
-    setInterval(() => {
+    const targetDate = new Date('January 18, 2026 00:00:00').getTime();
+    function updateTimer() {
         const now = new Date().getTime();
-        const diff = target - now;
+        const diff = targetDate - now;
+        if (diff < 0) { document.getElementById('timer').innerText = "HAPPY BIRTHDAY!"; return; }
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         document.getElementById('timer').innerText = `${d}D : ${h}H : ${m}M UNTIL 18 JAN`;
-    }, 1000);
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
 </script>
 
 </body>
