@@ -22,6 +22,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 30px; border-radius: 25px;
             backdrop-filter: blur(20px); text-align: center; width: 90%; max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .message-text {
@@ -34,11 +35,13 @@
         .mood-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
             color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
         }
 
         .mood-btn:hover { background: #ff758c; border-color: #ff758c; }
 
-        #responseSection { display: none; animation: fadeIn 1.5s; margin-top: 20px; }
+        #responseSection { display: none; animation: fadeIn 1s; margin-top: 20px; }
+        #musicInfo { display: none; margin-top: 15px; }
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -51,7 +54,7 @@
 <div class="glow"></div>
 
 <div class="card">
-    <div class="timer" id="cd">Countdown...</div>
+    <div class="timer" id="cd">Countdown Loading...</div>
     
     <div class="message-text">
         "Yrr, jo bhi hua uske liye <b>Sorry</b>. Main shayad pehle mature nahi tha, par ab realize hota hai ki galti meri thi.
@@ -68,7 +71,11 @@
 
     <div id="responseSection">
         <p id="replyText" style="font-style: italic; color: #ff758c;"></p>
-        <p style="font-size: 0.75rem; color: #777; margin-top: 10px;">(Listening to calm music...)</p>
+        
+        <div id="musicInfo">
+            <div style="font-size: 25px; margin-top: 10px;">✨ 🎵 ✨</div>
+            <p style="font-size: 0.75rem; color: #777; margin-top: 5px;">(Listening to calm music...)</p>
+        </div>
     </div>
 </div>
 
@@ -81,14 +88,17 @@
         document.getElementById('interaction').style.display = 'none';
         const section = document.getElementById('responseSection');
         const reply = document.getElementById('replyText');
+        const musicInfo = document.getElementById('musicInfo');
         const player = document.getElementById('musicPlayer');
         
         section.style.display = 'block';
 
         if(type === 'angry') {
-            reply.innerText = "I understand. Take your time, main wait karunga.";
+            reply.innerText = "I understand. Take your time, main wait karunga jab tak tum normal feel na karo.";
+            musicInfo.style.display = 'none'; // Music info hide rahega
         } else {
             reply.innerText = "Ye sunke sach mein bahut accha laga! Happy Birthday in advance! ✨";
+            musicInfo.style.display = 'block'; // Music info show hoga
             // Calm Piano Music
             player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
         }
@@ -101,7 +111,8 @@
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById('cd').innerText = `${d}D : ${h}H : ${m}M UNTIL 18 JAN`;
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('cd').innerText = `${d}D : ${h}H : ${m}M : ${s}S UNTIL 18 JAN`;
     }, 1000);
 </script>
 
