@@ -3,111 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For You ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Special Person ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
             margin: 0; padding: 0; height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center;
-            background: #0a0a0a; font-family: 'Poppins', sans-serif; color: white;
+            background: #000; font-family: 'Poppins', sans-serif; color: white;
             overflow: hidden;
         }
-        .bg-glow {
+
+        /* 1. Aesthetic Mesh Gradient Background */
+        .mesh-bg {
             position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
-            z-index: -1;
+            background: radial-gradient(at 0% 0%, #1a1a2e 0px, transparent 50%),
+                        radial-gradient(at 50% 0%, #2d1b33 0px, transparent 50%),
+                        radial-gradient(at 100% 0%, #16213e 0px, transparent 50%),
+                        radial-gradient(at 0% 100%, #1b1b2f 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, #0f0c29 0px, transparent 50%);
+            z-index: -1; filter: blur(30px); opacity: 0.8;
+            animation: bgMove 10s ease-in-out infinite alternate;
         }
+
+        @keyframes bgMove { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+        /* 2. Everything In One: Ultra Responsive Card */
         .card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px; border-radius: 20px;
-            backdrop-filter: blur(20px); text-align: center;
-            width: 90%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            padding: clamp(20px, 5vw, 35px);
+            border-radius: 30px; backdrop-filter: blur(20px);
+            text-align: center; width: 90%; max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: fadeIn 1.2s ease-out;
         }
-        .timer { font-size: 0.7rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; font-weight: 600; }
-        .profile-ring {
-            width: 85px; height: 85px; border-radius: 50%;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            margin: 0 auto 15px; padding: 3px; display: flex; align-items: center; justify-content: center;
+
+        .timer { font-size: 0.75rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 25px; font-weight: 600; }
+
+        /* 3. Photo Fail-Safe Section */
+        .profile-area { position: relative; width: 100px; height: 100px; margin: 0 auto 25px; }
+        .ring {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+            display: flex; align-items: center; justify-content: center; padding: 3px;
         }
-        .profile-pic { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #000; background: #222; }
-        .emotional-msg { font-size: 0.9rem; line-height: 1.6; text-align: left; margin-bottom: 20px; color: #ececec; }
-        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        .profile-pic {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            border: 3px solid #000; background: #222;
+        }
+
+        .emotional-msg {
+            font-size: clamp(0.85rem, 3.8vw, 0.95rem); line-height: 1.7;
+            color: #efefef; text-align: left; margin-bottom: 25px;
+        }
+
+        .highlight { color: #ff758c; font-weight: 500; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 12px; }
+
         .mood-btn {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white; padding: 14px; border-radius: 15px; cursor: pointer;
+            transition: 0.3s; font-size: 0.9rem;
         }
-        .mood-btn:hover { background: #ff758c; border-color: #ff758c; }
-        #musicSection, #replySection { display: none; animation: fadeIn 0.5s ease; }
-        .song-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; font-size: 0.8rem;
+
+        .mood-btn:hover { background: rgba(255,255,255,0.15); border-color: #ff758c; }
+
+        #musicSection, #replyBox { display: none; animation: fadeIn 0.8s ease; margin-top: 20px; }
+
+        /* 4. Music Click-to-Play Selector */
+        .song-chip {
+            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
+            margin-bottom: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem; transition: 0.3s;
         }
-        .song-btn:hover { background: #ff758c; }
+        .song-chip:hover { background: #ff758c; color: white; }
+
         textarea {
             width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px; color: white; padding: 12px; font-family: 'Poppins'; resize: none; margin-top: 10px;
+            border-radius: 12px; color: white; padding: 12px; font-family: 'Poppins'; resize: none;
         }
-        .send-btn { background: #ff758c; border: none; color: white; padding: 12px; border-radius: 25px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 600; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .send-btn {
+            background: #ff758c; border: none; color: white; padding: 12px;
+            border-radius: 50px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: 600;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-<div class="bg-glow"></div>
+
+<div class="mesh-bg"></div>
+
 <div class="card">
-    <div class="timer" id="cd">Countdown...</div>
-    <div class="profile-ring">
-        <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" alt="✨">
+    <div class="timer" id="cd">Countdown Loading...</div>
+
+    <div class="profile-area">
+        <div class="ring">
+            <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" 
+            onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+        </div>
     </div>
-    <div id="main">
+
+    <div id="mainContent">
         <div class="emotional-msg">
-            "Yrr, jo hua uske liye <b>Sorry</b>. Main mature nahi tha, par ab realize hota hai ki maine galti ki. 
+            "Yrr, jo hua uske liye <span class="highlight">Dil se Sorry</span>. Aaj kal purani baatein bahut yaad aati hain... shayad main mature nahi tha tab.
             <br><br>
-            10th bahut jaldi khatam hone wali hai, kya hum ye bacha hua time gusse mein nikal denge? Hum dono CR hain... kya sab bhool kar phir se <b>Best Friends</b> ban sakte hain?"
+            <span class="highlight">10th khatam hone wali hai</span>, aur school ki ye yaadein hamesha ke liye hain. Main nahi chahta hamari dosti aise khatam ho. Hum dono CR hain, kya sab bhool kar ek baar phir <span class="highlight">Best Friends</span> ban sakte hain?"
         </div>
+
         <div class="btn-group">
-            <button class="mood-btn" onclick="goMusic()">Theek hai, dosti pakki! ✨</button>
-            <button class="mood-btn" onclick="goReply('I understand. Main hamesha wait karunga.')">Abhi thoda gussa hoon 😤</button>
+            <button class="mood-btn" onclick="showMusic()">Dosti pakki! ❤️✨</button>
+            <button class="mood-btn" onclick="showReply('Thoda sa gussa hoon 😤')">Thoda gussa hoon...</button>
+            <button class="mood-btn" onclick="showReply('Mujhe thoda waqt chahiye 🙂')">Mujhe waqt chahiye</button>
         </div>
     </div>
+
     <div id="musicSection">
-        <p style="font-size: 0.8rem; margin-bottom: 15px;">Choose your vibe: 🎵</p>
-        <div class="song-btn" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')">🎹 Calm Piano</div>
-        <div class="song-btn" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')">🎧 Aesthetic Lofi</div>
-        <div class="song-btn" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3')">🍃 Soft Melody</div>
+        <p style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Choose a song for our vibe: 🎵</p>
+        <div class="song-chip" onclick="startAll('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'Piano')">🎹 Soft Piano Instrumental</div>
+        <div class="song-chip" onclick="startAll('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'Lofi')">🎧 Aesthetic Healing Lofi</div>
+        <div class="song-chip" onclick="startAll('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', 'Nature')">🍃 Calm Nature Melody</div>
     </div>
-    <div id="replySection">
+
+    <div id="replyBox">
         <form action="https://formspree.io/f/mjggvjqa" method="POST">
-            <p id="status" style="font-size: 0.8rem; color: #ff758c; margin-bottom: 10px;"></p>
-            <textarea name="message" rows="3" placeholder="Apne dil ki baat likho..." required></textarea>
+            <p id="statusTxt" style="color: #ff758c; font-size: 0.9rem; margin-bottom: 12px;"></p>
+            <textarea name="message" rows="3" placeholder="Apne dil ki baat yahan likho..." required></textarea>
             <button type="submit" class="send-btn">Send to Ujwal</button>
         </form>
     </div>
 </div>
-<audio id="player" loop></audio>
+
+<audio id="audioPlayer" loop></audio>
+
 <script>
-    function goMusic() {
-        document.getElementById('main').style.display = 'none';
+    function showMusic() {
+        document.getElementById('mainContent').style.display = 'none';
         document.getElementById('musicSection').style.display = 'block';
     }
-    function playSong(url) {
-        const p = document.getElementById('player');
-        p.src = url; p.play();
-        goReply('Ye sunke bahut sukoon mila! ❤️');
+
+    function startAll(url, type) {
+        const audio = document.getElementById('audioPlayer');
+        audio.src = url; audio.play();
+        showReply('Ye sunke bahut accha laga! ❤️');
     }
-    function goReply(msg) {
-        document.getElementById('main').style.display = 'none';
+
+    function showReply(txt) {
+        document.getElementById('mainContent').style.display = 'none';
         document.getElementById('musicSection').style.display = 'none';
-        document.getElementById('replySection').style.display = 'block';
-        document.getElementById('status').innerText = msg;
+        document.getElementById('replyBox').style.display = 'block';
+        document.getElementById('statusTxt').innerText = txt;
     }
-    const target = new Date('January 18, 2026 00:00:00').getTime();
+
+    const targetDate = new Date('January 18, 2026 00:00:00').getTime();
     setInterval(() => {
-        const diff = target - new Date().getTime();
-        const d = Math.floor(diff / (1000*60*60*24)), h = Math.floor((diff%(1000*60*60*24))/(1000*60*60)), m = Math.floor((diff%(1000*60*60))/(1000*60));
-        document.getElementById('cd').innerText = `${d}D : ${h}H : ${m}M UNTIL 18 JAN`;
+        const diff = targetDate - new Date().getTime();
+        const d = Math.floor(diff / (1000*60*60*24));
+        const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+        const m = Math.floor((diff%(1000*60*60))/(1000*60));
+        const s = Math.floor((diff%(1000*60))/1000);
+        document.getElementById('cd').innerText = `${d}D : ${h}H : ${m}M : ${s}S UNTIL 18 JAN`;
     }, 1000);
 </script>
+
 </body>
 </html>
