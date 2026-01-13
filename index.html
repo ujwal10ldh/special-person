@@ -4,197 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For You ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body {
             margin: 0; padding: 0; height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center;
-            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            font-family: 'Poppins', sans-serif; color: white;
+            background: #0a0a0a; font-family: 'Poppins', sans-serif; color: white;
             overflow: hidden;
         }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .bg-glow {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
+            z-index: -1;
         }
-
         .card {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: clamp(20px, 6vw, 40px);
-            border-radius: 30px;
-            backdrop-filter: blur(30px);
-            text-align: center; width: 92%; max-width: 420px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            animation: slideUp 1s ease-out;
-            position: relative; z-index: 10;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .timer {
-            font-size: 0.75rem; color: #ffd700;
-            letter-spacing: 3px; margin-bottom: 25px;
-            font-weight: 600; text-shadow: 0 0 10px rgba(255,215,0,0.3);
-        }
-
-        .profile-ring {
-            width: 100px; height: 100px; border-radius: 50%;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            margin: 0 auto 20px; display: flex; align-items: center;
-            justify-content: center; padding: 3px; animation: pulse 3s infinite;
-        }
-
-        .profile-pic {
-            width: 100%; height: 100%; border-radius: 50%;
-            object-fit: cover; border: 3px solid #000;
-        }
-
-        .emotional-msg {
-            font-size: clamp(0.9rem, 4vw, 1rem);
-            line-height: 1.7; color: #f0f0f0; text-align: left;
-            margin-bottom: 20px; font-weight: 300;
-        }
-
-        .highlight { color: #ff758c; font-weight: 500; }
-
-        .btn-group { display: flex; flex-direction: column; gap: 12px; }
-
-        .mood-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white; padding: 14px; border-radius: 15px;
-            cursor: pointer; transition: 0.3s forwards; font-size: 0.95rem;
+            padding: 25px; border-radius: 20px;
+            backdrop-filter: blur(20px); text-align: center;
+            width: 90%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
-
-        .mood-btn:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.02); }
-
-        /* Music Selector */
-        #musicSelector {
-            display: none; margin-top: 20px; animation: fadeIn 1s ease;
+        .timer { font-size: 0.7rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; font-weight: 600; }
+        .profile-ring {
+            width: 85px; height: 85px; border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            margin: 0 auto 15px; padding: 3px; display: flex; align-items: center; justify-content: center;
         }
-
-        .music-option {
+        .profile-pic { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #000; background: #222; }
+        .emotional-msg { font-size: 0.9rem; line-height: 1.6; text-align: left; margin-bottom: 20px; color: #ececec; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        .mood-btn {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+        }
+        .mood-btn:hover { background: #ff758c; border-color: #ff758c; }
+        #musicSection, #replySection { display: none; animation: fadeIn 0.5s ease; }
+        .song-btn {
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px; border-radius: 10px; margin-bottom: 10px; cursor: pointer;
-            font-size: 0.85rem; display: flex; align-items: center; gap: 10px;
+            padding: 10px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; font-size: 0.8rem;
         }
-
-        .music-option:hover { background: #ff758c; color: white; }
-
-        #replyBox { display: none; margin-top: 20px; animation: fadeIn 0.8s ease; }
-
+        .song-btn:hover { background: #ff758c; }
         textarea {
-            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px; color: white; padding: 15px;
-            font-family: 'Poppins'; resize: none; font-size: 0.9rem;
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px; color: white; padding: 12px; font-family: 'Poppins'; resize: none; margin-top: 10px;
         }
-
-        .send-btn {
-            background: linear-gradient(90deg, #ff758c, #ff7eb3); border: none; color: white;
-            padding: 12px; border-radius: 50px; cursor: pointer;
-            margin-top: 15px; font-weight: 600; width: 100%; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.3);
-        }
-
-        .heart { position: absolute; pointer-events: none; animation: fly 3.5s linear forwards; font-size: 20px; }
-        @keyframes fly { from { transform: translateY(0) scale(1); opacity: 1; } to { transform: translateY(-100vh) scale(2); opacity: 0; } }
+        .send-btn { background: #ff758c; border: none; color: white; padding: 12px; border-radius: 25px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 600; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
-
+<div class="bg-glow"></div>
 <div class="card">
-    <div class="timer" id="timer">JAN 18: COUNTDOWN</div>
-
+    <div class="timer" id="cd">Countdown...</div>
     <div class="profile-ring">
-        <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" 
-        onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+        <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" alt="✨">
     </div>
-
-    <div id="contentSection">
+    <div id="main">
         <div class="emotional-msg">
-            "Yrr, jo hua uske liye <span class="highlight">Dil se Maafi</span>. Main janta hoon galti meri thi. 
+            "Yrr, jo hua uske liye <b>Sorry</b>. Main mature nahi tha, par ab realize hota hai ki maine galti ki. 
             <br><br>
-            <span class="highlight">10th khatam hone wali hai</span>, kya hum ye precious waqt gusse mein nikal denge? Hum dono CR hain... kya sab bhool kar phir se Best Friends ban sakte hain?"
+            10th bahut jaldi khatam hone wali hai, kya hum ye bacha hua time gusse mein nikal denge? Hum dono CR hain... kya sab bhool kar phir se <b>Best Friends</b> ban sakte hain?"
         </div>
-
         <div class="btn-group">
-            <button class="mood-btn" onclick="startHeal('angry')">Gussa hoon abhi bhi 😤</button>
-            <button class="mood-btn" onclick="startHeal('happy')">Theek hai, dosti pakki! ✨</button>
+            <button class="mood-btn" onclick="goMusic()">Theek hai, dosti pakki! ✨</button>
+            <button class="mood-btn" onclick="goReply('I understand. Main hamesha wait karunga.')">Abhi thoda gussa hoon 😤</button>
         </div>
     </div>
-
-    <div id="musicSelector">
-        <p style="font-size: 0.9rem; margin-bottom: 15px;">Choose your vibe for the mood: 🎵</p>
-        <div class="music-option" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'Piano Calm')">🎹 Calm Piano Instrumental</div>
-        <div class="music-option" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'Aesthetic Lofi')">🎧 Aesthetic Healing Lofi</div>
-        <div class="music-option" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 'Nature Flow')">🍃 Soft Nature Instrumental</div>
+    <div id="musicSection">
+        <p style="font-size: 0.8rem; margin-bottom: 15px;">Choose your vibe: 🎵</p>
+        <div class="song-btn" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')">🎹 Calm Piano</div>
+        <div class="song-btn" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')">🎧 Aesthetic Lofi</div>
+        <div class="song-btn" onclick="playSong('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3')">🍃 Soft Melody</div>
     </div>
-
-    <div id="replyBox">
+    <div id="replySection">
         <form action="https://formspree.io/f/mjggvjqa" method="POST">
-            <p id="statusMsg" style="color: #ffd700; font-size: 0.9rem; margin-bottom: 10px;"></p>
-            <textarea name="message" rows="3" placeholder="Yahan apna dil ka message likho..." required></textarea>
+            <p id="status" style="font-size: 0.8rem; color: #ff758c; margin-bottom: 10px;"></p>
+            <textarea name="message" rows="3" placeholder="Apne dil ki baat likho..." required></textarea>
             <button type="submit" class="send-btn">Send to Ujwal</button>
         </form>
     </div>
 </div>
-
 <audio id="player" loop></audio>
-
 <script>
-    function startHeal(type) {
-        document.getElementById('contentSection').style.display = 'none';
-        if(type === 'happy') {
-            document.getElementById('musicSelector').style.display = 'block';
-            spawnHearts();
-        } else {
-            document.getElementById('replyBox').style.display = 'block';
-            document.getElementById('statusMsg').innerText = "I understand. Main wait karunga jab tak tum theek feel na karo.";
-        }
+    function goMusic() {
+        document.getElementById('main').style.display = 'none';
+        document.getElementById('musicSection').style.display = 'block';
     }
-
-    function playSong(url, name) {
-        const audio = document.getElementById('player');
-        audio.src = url;
-        audio.play();
-        document.getElementById('musicSelector').style.display = 'none';
-        document.getElementById('replyBox').style.display = 'block';
-        document.getElementById('statusMsg').innerText = "Playing: " + name + " ✨";
+    function playSong(url) {
+        const p = document.getElementById('player');
+        p.src = url; p.play();
+        goReply('Ye sunke bahut sukoon mila! ❤️');
     }
-
-    function spawnHearts() {
-        for(let i=0; i<20; i++) {
-            setTimeout(() => {
-                const h = document.createElement('div');
-                h.className = 'heart'; h.innerHTML = '❤️';
-                h.style.left = Math.random() * 90 + 5 + 'vw';
-                h.style.top = '100vh';
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 3500);
-            }, i * 180);
-        }
+    function goReply(msg) {
+        document.getElementById('main').style.display = 'none';
+        document.getElementById('musicSection').style.display = 'none';
+        document.getElementById('replySection').style.display = 'block';
+        document.getElementById('status').innerText = msg;
     }
-
-    const targetDate = new Date('January 18, 2026 00:00:00').getTime();
+    const target = new Date('January 18, 2026 00:00:00').getTime();
     setInterval(() => {
-        const diff = targetDate - new Date().getTime();
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById('timer').innerText = `${d}D : ${h}H : ${m}M : ${s}S UNTIL 18 JAN`;
+        const diff = target - new Date().getTime();
+        const d = Math.floor(diff / (1000*60*60*24)), h = Math.floor((diff%(1000*60*60*24))/(1000*60*60)), m = Math.floor((diff%(1000*60*60))/(1000*60));
+        document.getElementById('cd').innerText = `${d}D : ${h}H : ${m}M UNTIL 18 JAN`;
     }, 1000);
 </script>
-
 </body>
 </html>
