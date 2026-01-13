@@ -4,29 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
             background: #050505; font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
         }
 
-        .glow {
-            position: absolute; width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255, 117, 140, 0.15) 0%, transparent 70%);
-            filter: blur(80px); z-index: -1;
+        /* Ambient Background */
+        .stars {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
+            z-index: -1;
         }
 
         .card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 30px; border-radius: 25px;
-            backdrop-filter: blur(20px); text-align: center; width: 90%; max-width: 420px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(15px); text-align: center; width: 90%; max-width: 450px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            animation: slideUp 1s ease;
         }
 
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
         .message-text {
-            font-size: 1rem; line-height: 1.6; color: #ddd; text-align: left;
+            font-size: 1rem; line-height: 1.7; color: #ececec; text-align: left;
             margin-bottom: 20px; border-left: 3px solid #ff758c; padding-left: 15px;
         }
 
@@ -35,48 +39,52 @@
         .mood-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
             color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s;
-            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
         }
 
-        .mood-btn:hover { background: #ff758c; border-color: #ff758c; }
+        .mood-btn:hover { background: #ff758c; border-color: #ff758c; transform: scale(1.02); }
 
-        #responseSection { display: none; animation: fadeIn 1s; margin-top: 20px; }
-        #musicInfo { display: none; margin-top: 15px; }
-        
+        #responseSection { display: none; animation: fadeIn 1.5s; margin-top: 20px; }
+        #musicDisplay { display: none; margin-top: 15px; }
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .timer { font-size: 0.75rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; }
+        .timer { font-size: 0.75rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; font-weight: 500; }
         #audioContainer { display: none; }
+        .highlight { color: #ff758c; font-weight: 500; }
     </style>
 </head>
 <body>
 
-<div class="glow"></div>
+<div class="stars"></div>
 
 <div class="card">
     <div class="timer" id="cd">Countdown Loading...</div>
     
     <div class="message-text">
-        "Yrr, jo bhi hua uske liye <b>Sorry</b>. Main shayad pehle mature nahi tha, par ab realize hota hai ki galti meri thi.
+        "Yrr, main kaafi time se soch raha tha ki tumse kaise baat karun. Mujhe pata hai tum naraz ho aur shayad tumhara gussa hona sahi bhi hai. Main us waqt mature nahi tha, par ab realize hota hai ki <span class="highlight">maine galti ki</span>. 
         <br><br>
-        Hum dono CR hain, saath kaam karna hota hai... main bas chahta hoon ki hum purani baatein bhool kar phir se <b>Best Friends</b> ban jayein. Kya ek fresh start possible hai?"
+        Hum dono CR hain, saath kaam karna hota hai... par jab tum baat nahi karti toh sab kuch boring lagta hai. Main purani buri baaton ko yaad nahi dilana chahta, bas ek <span class="highlight">fresh start</span> chahta hoon. Kya hum phir se best friends ban sakte hain?"
     </div>
 
     <div id="interaction">
         <div class="btn-group">
-            <button class="mood-btn" onclick="startExperience('angry')">Abhi thoda gussa hoon 😤</button>
-            <button class="mood-btn" onclick="startExperience('happy')">Theek hai, dosti pakki! ✨</button>
+            <button class="mood-btn" onclick="process('angry')">Abhi thoda gussa hoon 😤</button>
+            <button class="mood-btn" onclick="process('calm')">Theek hai, let's see... 🙂</button>
+            <button class="mood-btn" onclick="process('happy')">Dosti pakki! ✨</button>
         </div>
     </div>
 
     <div id="responseSection">
         <p id="replyText" style="font-style: italic; color: #ff758c;"></p>
         
-        <div id="musicInfo">
-            <div style="font-size: 25px; margin-top: 10px;">✨ 🎵 ✨</div>
-            <p style="font-size: 0.75rem; color: #777; margin-top: 5px;">(Listening to calm music...)</p>
+        <div id="musicDisplay">
+            <div style="font-size: 25px; margin-top: 10px;">🎵 ✨ 🎵</div>
+            <p style="font-size: 0.75rem; color: #888;">(Listening to a calm song for you...)</p>
         </div>
     </div>
+    
+    <p style="font-size: 0.65rem; margin-top: 25px; opacity: 0.3;">— Ujwal Singh</p>
 </div>
 
 <div id="audioContainer">
@@ -84,22 +92,25 @@
 </div>
 
 <script>
-    function startExperience(type) {
+    function process(type) {
         document.getElementById('interaction').style.display = 'none';
         const section = document.getElementById('responseSection');
         const reply = document.getElementById('replyText');
-        const musicInfo = document.getElementById('musicInfo');
+        const musicBox = document.getElementById('musicDisplay');
         const player = document.getElementById('musicPlayer');
         
         section.style.display = 'block';
 
         if(type === 'angry') {
-            reply.innerText = "I understand. Take your time, main wait karunga jab tak tum normal feel na karo.";
-            musicInfo.style.display = 'none'; // Music info hide rahega
+            reply.innerText = "I understand. Take your time, main hamesha yahan hoon jab tumhara gussa thanda ho jaye.";
+            musicBox.style.display = 'none';
+        } else if(type === 'calm') {
+            reply.innerText = "Thank you! Mere liye itna hi kaafi hai ki tumne baat suni. Hum slow start karenge.";
+            musicBox.style.display = 'block';
+            player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
         } else {
-            reply.innerText = "Ye sunke sach mein bahut accha laga! Happy Birthday in advance! ✨";
-            musicInfo.style.display = 'block'; // Music info show hoga
-            // Calm Piano Music
+            reply.innerText = "Ye sunke sach mein bahut accha laga! I promise, is baar sab pehle se behtar hoga. Happy Birthday!";
+            musicBox.style.display = 'block';
             player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
         }
     }
