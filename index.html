@@ -11,7 +11,6 @@
             background: #050505; font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
         }
 
-        /* Ambient Background */
         .stars {
             position: absolute; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
@@ -30,7 +29,7 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .message-text {
-            font-size: 1rem; line-height: 1.7; color: #ececec; text-align: left;
+            font-size: 0.95rem; line-height: 1.7; color: #ececec; text-align: left;
             margin-bottom: 20px; border-left: 3px solid #ff758c; padding-left: 15px;
         }
 
@@ -39,7 +38,7 @@
         .mood-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
             color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.9rem; font-family: 'Poppins', sans-serif;
         }
 
         .mood-btn:hover { background: #ff758c; border-color: #ff758c; transform: scale(1.02); }
@@ -61,10 +60,12 @@
 <div class="card">
     <div class="timer" id="cd">Countdown Loading...</div>
     
-    <div class="message-text">
-        "Yrr, main kaafi time se soch raha tha ki tumse kaise baat karun. Mujhe pata hai tum naraz ho aur shayad tumhara gussa hona sahi bhi hai. Main us waqt mature nahi tha, par ab realize hota hai ki <span class="highlight">maine galti ki</span>. 
+    <div class="message-text" id="mainMsg">
+        "Yrr, main kaafi time se soch raha tha ki tumse kaise baat karun. Mujhe pata hai tum naraz ho aur shayad tumhara gussa hona sahi bhi hai. Main us waqt mature nahi tha, par ab realize hota hai ki maine galti ki. 
         <br><br>
-        Hum dono CR hain, saath kaam karna hota hai... par jab tum baat nahi karti toh sab kuch boring lagta hai. Main purani buri baaton ko yaad nahi dilana chahta, bas ek <span class="highlight">fresh start</span> chahta hoon. Kya hum phir se best friends ban sakte hain?"
+        Hum dono CR hain, saath kaam karna hota hai... par jab tum baat nahi karti toh sab kuch boring lagta hai. <b>Yrr 10th bahut jaldi khatam hone wali hai aur shayad agar tum mujhse gussa nahi hogi toh hum bahut saari acchi yaadein bhi bana sakte hain.</b>
+        <br><br>
+        Kya hum phir se best friends ban sakte hain?"
     </div>
 
     <div id="interaction">
@@ -80,7 +81,7 @@
         
         <div id="musicDisplay">
             <div style="font-size: 25px; margin-top: 10px;">🎵 ✨ 🎵</div>
-            <p style="font-size: 0.75rem; color: #888;">(Listening to a calm song for you...)</p>
+            <p style="font-size: 0.75rem; color: #888;">(Ek calm music tumhare liye...)</p>
         </div>
     </div>
     
@@ -102,15 +103,16 @@
         section.style.display = 'block';
 
         if(type === 'angry') {
-            reply.innerText = "I understand. Take your time, main hamesha yahan hoon jab tumhara gussa thanda ho jaye.";
+            reply.innerText = "I understand. Main intezaar karunga jab tak tumhara gussa thanda na ho jaye. I'm always here.";
             musicBox.style.display = 'none';
-        } else if(type === 'calm') {
-            reply.innerText = "Thank you! Mere liye itna hi kaafi hai ki tumne baat suni. Hum slow start karenge.";
-            musicBox.style.display = 'block';
-            player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
         } else {
-            reply.innerText = "Ye sunke sach mein bahut accha laga! I promise, is baar sab pehle se behtar hoga. Happy Birthday!";
+            if(type === 'calm') {
+                reply.innerText = "Thank you! Mere liye ye ek umeed ki tarah hai. Hum dheere-dheere sab theek kar lenge.";
+            } else {
+                reply.innerText = "Ye sunke sach mein bahut accha laga! 10th ke bache hue din best banayenge. Happy Birthday!";
+            }
             musicBox.style.display = 'block';
+            // Smooth Piano Background Music
             player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
         }
     }
