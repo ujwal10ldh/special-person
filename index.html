@@ -4,128 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
-            background: #050505; font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
+            background: #000; font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
         }
 
-        .stars {
+        .insta-glow {
             position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
-            z-index: -1;
+            background: radial-gradient(circle at top right, #833ab4, #fd1d1d, #fcb045);
+            opacity: 0.2; z-index: -1;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 30px; border-radius: 25px;
-            backdrop-filter: blur(15px); text-align: center; width: 90%; max-width: 450px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            animation: slideUp 1s ease;
+            backdrop-filter: blur(20px); text-align: center; width: 90%; max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Instagram Profile Style */
+        .profile-ring {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            padding: 3px;
+            animation: pulse 2s infinite;
+        }
+
+        .profile-pic {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            background: #222;
+            object-fit: cover;
+            border: 2px solid black;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 39, 67, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(220, 39, 67, 0); }
+            100% { transform: scale(1); }
+        }
 
         .message-text {
-            font-size: 0.95rem; line-height: 1.7; color: #ececec; text-align: left;
+            font-size: 0.95rem; line-height: 1.7; color: #eee; text-align: left;
             margin-bottom: 20px; border-left: 3px solid #ff758c; padding-left: 15px;
         }
 
-        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
 
         .mood-btn {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
             color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s;
-            font-size: 0.9rem; font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .mood-btn:hover { background: #ff758c; border-color: #ff758c; transform: scale(1.02); }
+        .mood-btn:hover { background: white; color: black; font-weight: bold; }
 
-        #responseSection { display: none; animation: fadeIn 1.5s; margin-top: 20px; }
-        #musicDisplay { display: none; margin-top: 15px; }
+        #responseSection { display: none; animation: fadeIn 1s ease forwards; margin-top: 20px; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .timer { font-size: 0.75rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; font-weight: 500; }
-        #audioContainer { display: none; }
-        .highlight { color: #ff758c; font-weight: 500; }
+        .timer { font-size: 0.7rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; }
+        
+        /* Floating hearts for dosti pakki */
+        .heart-float { position: absolute; font-size: 20px; animation: rise 3s ease-out forwards; pointer-events: none; }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-500px) scale(2); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-<div class="stars"></div>
+<div class="insta-glow"></div>
 
 <div class="card">
-    <div class="timer" id="cd">Countdown Loading...</div>
+    <div class="timer" id="countdown">Countdown...</div>
     
-    <div class="message-text" id="mainMsg">
-        "Yrr, main kaafi time se soch raha tha ki tumse kaise baat karun. Mujhe pata hai tum naraz ho aur shayad tumhara gussa hona sahi bhi hai. Main us waqt mature nahi tha, par ab realize hota hai ki maine galti ki. 
+    <div class="profile-ring">
+        <img class="profile-pic" src="https://www.instagram.com/miss_pooja_7722/live_data_placeholder/" 
+        onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" id="pfp">
+    </div>
+    
+    <div class="message-text">
+        "Yrr, main kaafi time se soch raha tha ki tumse kaise baat karun. Mujhe pata hai tum naraz ho aur shayad mera mature na hona hi wajah thi. 
         <br><br>
-        Hum dono CR hain, saath kaam karna hota hai... par jab tum baat nahi karti toh sab kuch boring lagta hai. <b>Yrr 10th bahut jaldi khatam hone wali hai aur shayad agar tum mujhse gussa nahi hogi toh hum bahut saari acchi yaadein bhi bana sakte hain.</b>
+        10th khatam hone wali hai aur main nahi chahta hum aise alag hon. Agar tum gussa nahi hogi toh hum bohot saari acchi yaadein bana sakte hain.
         <br><br>
-        Kya hum phir se best friends ban sakte hain?"
+        Hum dono CR hain, kya hum phir se <b>Best Friends</b> ban sakte hain?"
     </div>
 
     <div id="interaction">
         <div class="btn-group">
-            <button class="mood-btn" onclick="process('angry')">Abhi thoda gussa hoon 😤</button>
-            <button class="mood-btn" onclick="process('calm')">Theek hai, let's see... 🙂</button>
-            <button class="mood-btn" onclick="process('happy')">Dosti pakki! ✨</button>
+            <button class="mood-btn" onclick="showResponse('angry')">Abhi thoda gussa hoon 😤</button>
+            <button class="mood-btn" onclick="showResponse('happy')">Dosti pakki! ✨</button>
         </div>
     </div>
 
     <div id="responseSection">
-        <p id="replyText" style="font-style: italic; color: #ff758c;"></p>
-        
-        <div id="musicDisplay">
-            <div style="font-size: 25px; margin-top: 10px;">🎵 ✨ 🎵</div>
-            <p style="font-size: 0.75rem; color: #888;">(Ek calm music tumhare liye...)</p>
+        <p id="replyText" style="font-weight: 500; color: #ff758c;"></p>
+        <div id="musicLabel" style="display:none; font-size: 0.75rem; color: #888; margin-top: 10px;">
+            🎵 Playing a calm track for you...
         </div>
     </div>
-    
-    <p style="font-size: 0.65rem; margin-top: 25px; opacity: 0.3;">— Ujwal Singh</p>
 </div>
 
-<div id="audioContainer">
-    <iframe id="musicPlayer" width="0" height="0" src="" frameborder="0" allow="autoplay"></iframe>
+<div style="display:none;">
+    <iframe id="bgMusic" width="0" height="0" src="" frameborder="0" allow="autoplay"></iframe>
 </div>
 
 <script>
-    function process(type) {
+    // Replace the username here
+    const username = "miss_pooja_7722"; 
+    document.getElementById('pfp').src = `https://www.instagram.com/${username}/profile_pic/?size=l`;
+
+    function showResponse(type) {
         document.getElementById('interaction').style.display = 'none';
         const section = document.getElementById('responseSection');
         const reply = document.getElementById('replyText');
-        const musicBox = document.getElementById('musicDisplay');
-        const player = document.getElementById('musicPlayer');
+        const musicLabel = document.getElementById('musicLabel');
+        const player = document.getElementById('bgMusic');
         
         section.style.display = 'block';
 
         if(type === 'angry') {
-            reply.innerText = "I understand. Main intezaar karunga jab tak tumhara gussa thanda na ho jaye. I'm always here.";
-            musicBox.style.display = 'none';
+            reply.innerText = "I understand. Main hamesha yahan hoon jab tumhara gussa thanda ho jaye.";
         } else {
-            if(type === 'calm') {
-                reply.innerText = "Thank you! Mere liye ye ek umeed ki tarah hai. Hum dheere-dheere sab theek kar lenge.";
-            } else {
-                reply.innerText = "Ye sunke sach mein bahut accha laga! 10th ke bache hue din best banayenge. Happy Birthday!";
-            }
-            musicBox.style.display = 'block';
-            // Smooth Piano Background Music
+            reply.innerText = "Ye sunke sach mein bahut accha laga! ❤️";
+            musicLabel.style.display = 'block';
             player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
+            
+            // Generate floating hearts
+            for(let i=0; i<10; i++) {
+                setTimeout(() => {
+                    const h = document.createElement('div');
+                    h.className = 'heart-float';
+                    h.innerHTML = '❤️';
+                    h.style.left = Math.random() * 80 + 10 + '%';
+                    h.style.bottom = '20%';
+                    document.body.appendChild(h);
+                    setTimeout(() => h.remove(), 3000);
+                }, i * 200);
+            }
         }
     }
 
-    const target = new Date('January 18, 2026 00:00:00').getTime();
+    const targetDate = new Date('January 18, 2026 00:00:00').getTime();
     setInterval(() => {
-        const now = new Date().getTime();
-        const diff = target - now;
+        const diff = targetDate - new Date().getTime();
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById('cd').innerText = `${d}D : ${h}H : ${m}M : ${s}S UNTIL 18 JAN`;
+        document.getElementById('countdown').innerText = `${d}D : ${h}H : ${m}M UNTIL 18 JAN`;
     }, 1000);
 </script>
 
