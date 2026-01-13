@@ -25,23 +25,21 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
 
-        /* Instagram Profile Style */
         .profile-ring {
-            width: 90px; height: 90px;
+            width: 100px; height: 100px;
             border-radius: 50%;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             margin: 0 auto 20px;
             display: flex; align-items: center; justify-content: center;
-            padding: 3px;
+            padding: 4px;
             animation: pulse 2s infinite;
         }
 
         .profile-pic {
             width: 100%; height: 100%;
             border-radius: 50%;
-            background: #222;
             object-fit: cover;
-            border: 2px solid black;
+            border: 3px solid black;
         }
 
         @keyframes pulse {
@@ -66,12 +64,12 @@
         .mood-btn:hover { background: white; color: black; font-weight: bold; }
 
         #responseSection { display: none; animation: fadeIn 1s ease forwards; margin-top: 20px; }
+        #musicInfo { display: none; margin-top: 10px; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .timer { font-size: 0.7rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; }
+        .timer { font-size: 0.75rem; color: #ffd700; letter-spacing: 2px; margin-bottom: 15px; font-weight: 500; }
         
-        /* Floating hearts for dosti pakki */
         .heart-float { position: absolute; font-size: 20px; animation: rise 3s ease-out forwards; pointer-events: none; }
         @keyframes rise {
             0% { transform: translateY(0) scale(1); opacity: 1; }
@@ -84,32 +82,31 @@
 <div class="insta-glow"></div>
 
 <div class="card">
-    <div class="timer" id="countdown">Countdown...</div>
+    <div class="timer" id="countdown">Countdown Loading...</div>
     
     <div class="profile-ring">
-        <img class="profile-pic" src="https://www.instagram.com/miss_pooja_7722/live_data_placeholder/" 
-        onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'" id="pfp">
+        <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546">
     </div>
     
     <div class="message-text">
-        "Yrr, main kaafi time se soch raha tha ki tumse kaise baat karun. Mujhe pata hai tum naraz ho aur shayad mera mature na hona hi wajah thi. 
+        "Yrr, jo bhi hua uske liye <b>Sorry</b>. Main shayad pehle mature nahi tha, par ab realize hota hai ki galti meri thi. 
         <br><br>
-        10th khatam hone wali hai aur main nahi chahta hum aise alag hon. Agar tum gussa nahi hogi toh hum bohot saari acchi yaadein bana sakte hain.
-        <br><br>
-        Hum dono CR hain, kya hum phir se <b>Best Friends</b> ban sakte hain?"
+        10th bahut jaldi khatam hone wali hai aur agar tum gussa nahi hogi toh hum bahut saari acchi yaadein bana sakte hain. Hum dono CR hain, kya hum sab bhool kar phir se <b>Best Friends</b> ban sakte hain?"
     </div>
 
     <div id="interaction">
         <div class="btn-group">
             <button class="mood-btn" onclick="showResponse('angry')">Abhi thoda gussa hoon 😤</button>
+            <button class="mood-btn" onclick="showResponse('maybe')">Theek hai, let's see... 🙂</button>
             <button class="mood-btn" onclick="showResponse('happy')">Dosti pakki! ✨</button>
         </div>
     </div>
 
     <div id="responseSection">
         <p id="replyText" style="font-weight: 500; color: #ff758c;"></p>
-        <div id="musicLabel" style="display:none; font-size: 0.75rem; color: #888; margin-top: 10px;">
-            🎵 Playing a calm track for you...
+        <div id="musicInfo">
+            <div style="font-size: 25px; margin-top: 10px;">🎵 ✨ 🎵</div>
+            <p style="font-size: 0.75rem; color: #888;">(Ek calm music tumhare liye...)</p>
         </div>
     </div>
 </div>
@@ -119,28 +116,28 @@
 </div>
 
 <script>
-    // Replace the username here
-    const username = "miss_pooja_7722"; 
-    document.getElementById('pfp').src = `https://www.instagram.com/${username}/profile_pic/?size=l`;
-
     function showResponse(type) {
         document.getElementById('interaction').style.display = 'none';
         const section = document.getElementById('responseSection');
         const reply = document.getElementById('replyText');
-        const musicLabel = document.getElementById('musicLabel');
+        const musicInfo = document.getElementById('musicInfo');
         const player = document.getElementById('bgMusic');
         
         section.style.display = 'block';
 
         if(type === 'angry') {
-            reply.innerText = "I understand. Main hamesha yahan hoon jab tumhara gussa thanda ho jaye.";
+            reply.innerText = "I understand. Main intezaar karunga jab tak tumhara gussa thanda na ho jaye. I'm always here.";
+            musicInfo.style.display = 'none';
+        } else if(type === 'maybe') {
+            reply.innerText = "Thank you! Mere liye ye ek umeed ki tarah hai. Hum dheere-dheere sab theek kar lenge.";
+            musicInfo.style.display = 'block';
+            player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
         } else {
-            reply.innerText = "Ye sunke sach mein bahut accha laga! ❤️";
-            musicLabel.style.display = 'block';
+            reply.innerText = "Ye sunke sach mein bahut accha laga! ❤️ Happy Birthday in advance!";
+            musicInfo.style.display = 'block';
             player.src = "https://www.youtube.com/embed/77ZozI0rw7w?autoplay=1";
             
-            // Generate floating hearts
-            for(let i=0; i<10; i++) {
+            for(let i=0; i<15; i++) {
                 setTimeout(() => {
                     const h = document.createElement('div');
                     h.className = 'heart-float';
@@ -160,7 +157,8 @@
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById('countdown').innerText = `${d}D : ${h}H : ${m}M UNTIL 18 JAN`;
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('countdown').innerText = `${d}D : ${h}H : ${m}M : ${s}S UNTIL 18 JAN`;
     }, 1000);
 </script>
 
