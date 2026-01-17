@@ -6,42 +6,43 @@
     <title>For You ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body {
             height: 100vh; width: 100vw;
-            background: #0f0c29; 
-            background: linear-gradient(to bottom, #1a1a2e, #0f0c29);
+            background: #0a0a0c; 
+            background: radial-gradient(circle at top right, #1a1a2e, #050505);
             font-family: 'Poppins', sans-serif;
             display: flex; justify-content: center; align-items: center;
             color: white; overflow: hidden;
         }
         .container {
-            width: 90%; max-width: 380px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
+            width: 90%; max-width: 370px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
+            border-radius: 30px;
             padding: 25px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
         .step { display: none; animation: fadeIn 0.4s ease-in-out; }
         .active { display: block; }
-        .profile-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #ff758c; margin-bottom: 15px; object-fit: cover; }
-        .main-text { font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; text-align: left; }
+        .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid #ff758c; margin-bottom: 15px; object-fit: cover; }
+        .main-text { font-size: 0.88rem; line-height: 1.6; margin-bottom: 20px; text-align: left; }
         .pink { color: #ff758c; font-weight: 600; }
         .btn {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
             color: white; padding: 12px; border-radius: 12px; margin-bottom: 10px;
             cursor: pointer; transition: 0.3s; font-size: 0.85rem; width: 100%; font-family: 'Poppins';
         }
-        .btn:hover { background: #ff758c; border-color: transparent; }
+        .btn:active { background: #ff758c; transform: scale(0.98); }
         .singer-box {
-            background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px;
-            margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3); padding: 14px; border-radius: 15px;
+            margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05);
             display: flex; justify-content: space-between; align-items: center; cursor: pointer;
         }
-        #ytPlayer { border-radius: 15px; margin-top: 15px; border: 1px solid #ff758c; width: 100%; height: 200px; }
-        textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: white; padding: 12px; resize: none; margin-bottom: 10px; }
+        .singer-box:hover { border-color: #ff758c; }
+        #ytPlayer { border-radius: 15px; margin-top: 10px; border: 1px solid #ff758c; width: 100%; height: 190px; }
+        textarea { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; color: white; padding: 15px; resize: none; margin-bottom: 10px; font-family: 'Poppins'; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -51,29 +52,30 @@
     <div id="step1" class="step active">
         <img class="profile-img" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
         <div class="main-text">
-            "Yrr, jo hua uske liye <span class="pink">Dil se Sorry</span>. Main nahi chahta hamari dosti aise khatam ho. Kya sab bhool kar <span class="pink">Best Friends</span> ban sakte hain?"
+            "Yrr, jo hua uske liye <span class="pink">Dil se Sorry</span>. 10th khatam hone wali hai, main nahi chahta hamari dosti aise khatam ho. Hum dono CR hain... kya sab bhool kar ek baar phir <span class="pink">Best Friends</span> ban sakte hain?"
         </div>
-        <button class="btn" onclick="goStep(2)">Theek hai, dosti pakki! ❤️</button>
-        <button class="btn" onclick="showReply('Thoda gussa hoon 😤')">Gussa hoon abhi...</button>
+        <button class="btn" onclick="goStep(2)" style="background: #ff758c; font-weight: 600;">Dosti pakki! ❤️✨</button>
+        <button class="btn" onclick="showReply('Thoda gussa hoon 😤')">Abhi thoda gussa hoon...</button>
+        <button class="btn" onclick="showReply('Mujhe waqt chahiye 🙂')">Mujhe waqt chahiye</button>
     </div>
 
     <div id="step2" class="step">
-        <p style="margin-bottom: 15px; font-size: 0.85rem;">Sunno, ye gaana tumhare liye: 🎵</p>
-        <div class="singer-box" onclick="playYT('Arijit Singh most famous love songs')"><span>🎤 Arijit Singh</span> <span>❤️</span></div>
-        <div class="singer-box" onclick="playYT('Talwiinder aesthetic romantic songs')"><span>🎤 Talwiinder</span> <span>🎧</span></div>
+        <p style="margin-bottom: 20px; font-size: 0.85rem; opacity: 0.8;">Pehle unka koi famous gaana sunte hain: 🎵</p>
+        <div class="singer-box" onclick="playYT('Arijit Singh Best Romantic Hits 2024')"><span>🎤 Arijit Singh</span> <span>❤️</span></div>
+        <div class="singer-box" onclick="playYT('Talwiinder Most Popular Love Songs')"><span>🎤 Talwiinder</span> <span>🎧</span></div>
         <div class="singer-box" onclick="playYT('Kailash Kher Teri Deewani Saiyyan')"><span>🎤 Kailash Kher</span> <span>✨</span></div>
     </div>
 
     <div id="step3" class="step">
         <div id="playerArea"></div>
-        <button class="btn" style="margin-top: 15px; background: #ff758c;" onclick="goStep(4)">Next: Message Likho ✨</button>
+        <button class="btn" style="margin-top: 15px; background: #ff758c; font-weight: 600;" onclick="goStep(4)">Next: Dil ki baat likho ✨</button>
     </div>
 
     <div id="step4" class="step">
         <form action="https://formspree.io/f/mjggvjqa" method="POST">
-            <p id="replyStatus" style="color: #ff758c; margin-bottom: 10px; font-size: 0.85rem; font-weight: 600;"></p>
-            <textarea name="message" rows="4" placeholder="Apne dil ki baat likho..." required></textarea>
-            <button type="submit" class="btn" style="background: #ff758c;">Send to Ujwal</button>
+            <p id="replyStatus" style="color: #ff758c; margin-bottom: 12px; font-size: 0.85rem; font-weight: 600;"></p>
+            <textarea name="message" rows="4" placeholder="Jo bhi kehna hai yahan likho..." required></textarea>
+            <button type="submit" class="btn" style="background: #ff758c; font-weight: 600;">Send to Ujwal</button>
         </form>
     </div>
 </div>
@@ -86,7 +88,7 @@
 
     function playYT(query) {
         const playerDiv = document.getElementById('playerArea');
-        // specifically searching for the most popular love songs
+        // specifically searching for the most popular love songs and enabling autoplay
         playerDiv.innerHTML = `<iframe id="ytPlayer" src="https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
         goStep(3);
     }
