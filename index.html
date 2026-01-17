@@ -18,31 +18,39 @@
         .container {
             width: 90%; max-width: 370px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 30px;
-            padding: 25px; text-align: center;
+            padding: 20px; text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
         .step { display: none; animation: fadeIn 0.4s ease-in-out; }
         .active { display: block; }
-        .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid #ff758c; margin-bottom: 15px; object-fit: cover; }
-        .main-text { font-size: 0.88rem; line-height: 1.6; margin-bottom: 20px; text-align: left; }
+
+        /* Photo Slider Style */
+        .slider { width: 100%; height: 150px; border-radius: 15px; overflow: hidden; margin-bottom: 15px; position: relative; border: 1px solid #ff758c; }
+        .slider img { width: 100%; height: 100%; object-fit: cover; }
+
+        .profile-img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #ff758c; margin-bottom: 10px; object-fit: cover; }
+        .main-text { font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px; text-align: left; }
         .pink { color: #ff758c; font-weight: 600; }
+        
         .btn {
             background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
             color: white; padding: 12px; border-radius: 12px; margin-bottom: 10px;
             cursor: pointer; transition: 0.3s; font-size: 0.85rem; width: 100%; font-family: 'Poppins';
         }
         .btn:active { background: #ff758c; transform: scale(0.98); }
+
         .singer-box {
-            background: rgba(0,0,0,0.3); padding: 14px; border-radius: 15px;
-            margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3); padding: 12px; border-radius: 15px;
+            margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);
             display: flex; justify-content: space-between; align-items: center; cursor: pointer;
         }
-        .singer-box:hover { border-color: #ff758c; }
-        #ytPlayer { border-radius: 15px; margin-top: 10px; border: 1px solid #ff758c; width: 100%; height: 190px; }
+
+        #ytPlayer { border-radius: 15px; margin-top: 10px; border: 1px solid #ff758c; width: 100%; height: 200px; background: #000; }
         textarea { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; color: white; padding: 15px; resize: none; margin-bottom: 10px; font-family: 'Poppins'; }
+        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -50,22 +58,60 @@
 
 <div class="container">
     <div id="step1" class="step active">
+        <div class="slider">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=500" alt="Memories">
+        </div>
         <img class="profile-img" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
         <div class="main-text">
-            "Yrr, jo hua uske liye <span class="pink">Dil se Sorry</span>. 10th khatam hone wali hai, main nahi chahta hamari dosti aise khatam ho. Hum dono CR hain... kya sab bhool kar ek baar phir <span class="pink">Best Friends</span> ban sakte hain?"
+            "Yrr, jo hua uske liye <span class="pink">Dil se Sorry</span>. Aaj kal purani yaadein bahut yaad aati hain. Hum dono CR hain... kya sab bhool kar ek baar phir <span class="pink">Best Friends</span> ban sakte hain?"
         </div>
         <button class="btn" onclick="goStep(2)" style="background: #ff758c; font-weight: 600;">Dosti pakki! ❤️✨</button>
-        <button class="btn" onclick="showReply('Thoda gussa hoon 😤')">Abhi thoda gussa hoon...</button>
-        <button class="btn" onclick="showReply('Mujhe waqt chahiye 🙂')">Mujhe waqt chahiye</button>
+        <button class="btn" onclick="showReply('Abhi gussa hoon... 😤')">Thoda gussa hoon...</button>
+        <button class="btn" onclick="showReply('Mujhe thoda waqt chahiye... 🙂')">Mujhe waqt chahiye</button>
     </div>
 
     <div id="step2" class="step">
-        <p style="margin-bottom: 20px; font-size: 0.85rem; opacity: 0.8;">Pehle unka koi famous gaana sunte hain: 🎵</p>
-        <div class="singer-box" onclick="playYT('Arijit Singh Best Romantic Hits 2024')"><span>🎤 Arijit Singh</span> <span>❤️</span></div>
-        <div class="singer-box" onclick="playYT('Talwiinder Most Popular Love Songs')"><span>🎤 Talwiinder</span> <span>🎧</span></div>
-        <div class="singer-box" onclick="playYT('Kailash Kher Teri Deewani Saiyyan')"><span>🎤 Kailash Kher</span> <span>✨</span></div>
+        <p style="margin-bottom: 20px; font-size: 0.85rem; opacity: 0.8;">Unka koi sabse famous love song: 🎵</p>
+        <div class="singer-box" onclick="playMusic('Arijit Singh Best Love Songs Non-Stop')"><span>🎤 Arijit Singh</span> <span>❤️</span></div>
+        <div class="singer-box" onclick="playMusic('Talwiinder Best Romantic Aesthetic')"><span>🎤 Talwiinder</span> <span>🎧</span></div>
+        <div class="singer-box" onclick="playMusic('Kailash Kher Teri Deewani Saiyyan Official')"><span>🎤 Kailash Kher</span> <span>✨</span></div>
     </div>
 
+    <div id="step3" class="step">
+        <div id="playerArea"></div>
+        <button class="btn" style="margin-top: 15px; background: #ff758c; font-weight: 600;" onclick="goStep(4)">Next: Dil ki baat likho ✨</button>
+    </div>
+
+    <div id="step4" class="step">
+        <form action="https://formspree.io/f/mjggvjqa" method="POST">
+            <p id="replyStatus" style="color: #ff758c; margin-bottom: 12px; font-size: 0.85rem; font-weight: 600;"></p>
+            <textarea name="message" rows="4" placeholder="Apne dil ki baat likho..." required></textarea>
+            <button type="submit" class="btn" style="background: #ff758c; font-weight: 600;">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function goStep(n) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + n).classList.add('active');
+    }
+
+    function playMusic(searchQuery) {
+        const area = document.getElementById('playerArea');
+        const embedUrl = `https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(searchQuery)}&rel=0&autoplay=1`;
+        
+        area.innerHTML = `<iframe id="ytPlayer" src="${embedUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        goStep(3);
+    }
+
+    function showReply(txt) {
+        document.getElementById('replyStatus').innerText = txt;
+        goStep(4);
+    }
+</script>
+</body>
+</html>
     <div id="step3" class="step">
         <div id="playerArea"></div>
         <button class="btn" style="margin-top: 15px; background: #ff758c; font-weight: 600;" onclick="goStep(4)">Next: Dil ki baat likho ✨</button>
