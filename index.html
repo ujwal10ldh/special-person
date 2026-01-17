@@ -6,53 +6,62 @@
     <title>For My Best Friend ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            margin: 0; padding: 0; min-height: 100vh; width: 100vw;
+            height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center;
-            background: #0a0a0c; font-family: 'Poppins', sans-serif; color: white;
-            overflow-x: hidden;
+            background: #08080a; font-family: 'Poppins', sans-serif; color: white;
+            overflow: hidden;
         }
-        /* Animated Background */
+
+        /* Aesthetic Background */
         .bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 20% 30%, #1a1a2e 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, #2d1b33 0%, transparent 40%);
+            background: radial-gradient(circle at 10% 10%, #1a1a2e 0%, transparent 40%),
+                        radial-gradient(circle at 90% 90%, #2d1b33 0%, transparent 40%);
             z-index: -1;
         }
+
         .card {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px; border-radius: 25px; backdrop-filter: blur(15px);
-            text-align: center; width: 92%; max-width: 380px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            animation: fadeIn 0.8s ease-out;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px; border-radius: 25px;
+            backdrop-filter: blur(20px); text-align: center;
+            width: 90%; max-width: 360px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            position: relative;
         }
-        .profile-pic { width: 85px; height: 85px; border-radius: 50%; border: 2px solid #ff758c; margin-bottom: 15px; object-fit: cover; }
-        .msg { font-size: 0.9rem; line-height: 1.6; text-align: left; margin-bottom: 20px; color: #e0e0e0; }
-        .highlight { color: #ff758c; font-weight: 600; }
+
+        .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #ff758c; margin-bottom: 15px; object-fit: cover; }
         
+        .msg { font-size: 0.85rem; line-height: 1.6; text-align: left; margin-bottom: 20px; color: #efefef; }
+        .highlight { color: #ff758c; font-weight: 600; }
+
+        /* Container to keep sections separate */
+        .section { display: none; animation: fadeIn 0.5s ease-out; }
+        .section.active { display: block; }
+
         .btn-group { display: flex; flex-direction: column; gap: 10px; }
         .btn {
             background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-size: 0.85rem;
+            color: white; padding: 12px; border-radius: 12px; cursor: pointer; 
+            transition: 0.3s; font-size: 0.85rem; font-family: inherit;
         }
-        .btn:hover { background: #ff758c; border-color: transparent; transform: translateY(-2px); }
-        .btn-primary { background: #ff758c; font-weight: 600; margin-top: 10px; }
+        .btn:active { transform: scale(0.95); background: #ff758c; }
 
-        #step2, #step3, #step4 { display: none; animation: fadeIn 0.5s ease; }
+        .singer-btn {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px;
+            margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.05); cursor: pointer;
+        }
 
-        .singer-card {
-            background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;
-            margin-bottom: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);
-            display: flex; align-items: center; justify-content: space-between;
+        input[type="text"], textarea {
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.4); color: white; margin-bottom: 12px; font-family: inherit;
         }
-        .singer-card:hover { border-color: #ff758c; }
-        
-        input[type="text"] {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(0,0,0,0.5); color: white; margin-bottom: 10px;
-        }
-        iframe { border-radius: 12px; margin-top: 10px; display: none; border: 1px solid #ff758c; }
-        textarea { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; padding: 12px; resize: none; }
+
+        #ytPlayer { border-radius: 12px; margin-top: 10px; border: 1px solid #ff758c; width: 100%; height: 180px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -61,10 +70,65 @@
 <div class="bg"></div>
 
 <div class="card">
-    <div id="step1">
+    <div id="step1" class="section active">
         <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
         <div class="msg">
-            "Yrr, jo hua uske liye <span class="highlight">Dil se Sorry</span>. 10th khatam hone wali hai, main nahi chahta hamari dosti aise khatam ho. Hum dono CR hain... kya sab bhool kar phir se <span class="highlight">Best Friends</span> ban sakte hain?"
+            "Yrr, jo hua uske liye <span class="highlight">Dil se Sorry</span>. 10th khatam hone wali hai, main nahi chahta hamari dosti aise khatam ho. Hum dono CR hain... kya sab bhool kar ek baar phir <span class="highlight">Best Friends</span> ban sakte hain?"
+        </div>
+        <div class="btn-group">
+            <button class="btn" onclick="nextStep(2)">Dosti pakki! ❤️✨</button>
+            <button class="btn" onclick="showReply('Abhi thoda gussa hoon 😤')">Thoda gussa hoon...</button>
+            <button class="btn" onclick="showReply('Mujhe waqt chahiye 🙂')">Mujhe waqt chahiye</button>
+        </div>
+    </div>
+
+    <div id="step2" class="section">
+        <p style="font-size: 0.8rem; margin-bottom: 15px; opacity: 0.8;">Pehle unka koi emotional song: 🎵</p>
+        <div class="singer-btn" onclick="playMusic('Arijit Singh Emotional Hits')"><span>🎤 Arijit Singh</span> <span>❤️</span></div>
+        <div class="singer-btn" onclick="playMusic('Talwiinder Aesthetic Love')"><span>🎤 Talwiinder</span> <span>🎧</span></div>
+        <div class="singer-btn" onclick="playMusic('Kailash Kher Teri Deewani')"><span>🎤 Kailash Kher</span> <span>✨</span></div>
+        <button class="btn" style="width: 100%; margin-top: 10px;" onclick="nextStep(3)">🔍 Search Any Other</button>
+    </div>
+
+    <div id="step3" class="section">
+        <input type="text" id="query" placeholder="Type song name...">
+        <button class="btn" style="width: 100%; background: #ff758c;" onclick="playMusic()">Play Now 🎵</button>
+        <div id="playerWrap"></div>
+        <button class="btn" style="width: 100%; margin-top: 15px;" onclick="nextStep(4)">Next: Message Likho</button>
+    </div>
+
+    <div id="step4" class="section">
+        <form action="https://formspree.io/f/mjggvjqa" method="POST">
+            <p id="status" style="color: #ff758c; font-size: 0.8rem; margin-bottom: 10px; font-weight: 500;"></p>
+            <textarea name="message" rows="3" placeholder="Apne dil ki baat likho..." required></textarea>
+            <button type="submit" class="btn" style="width: 100%; background: #ff758c; font-weight: 600;">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function nextStep(n) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + n).classList.add('active');
+    }
+
+    function playMusic(preset) {
+        const s = preset || document.getElementById('query').value;
+        if(!s) return alert("Song name likho!");
+        
+        const wrap = document.getElementById('playerWrap');
+        wrap.innerHTML = `<iframe id="ytPlayer" src="https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(s)}&autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
+        
+        if(preset) nextStep(3);
+    }
+
+    function showReply(txt) {
+        nextStep(4);
+        document.getElementById('status').innerText = txt;
+    }
+</script>
+</body>
+</html>
         </div>
         <div class="btn-group">
             <button class="btn" onclick="nextStep(2)">Dosti Pakki! ❤️✨</button>
