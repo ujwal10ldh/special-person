@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For You ✨</title>
+    <title>Happy Birthday Pooja 🎂</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -21,71 +21,62 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 30px;
-            padding: 20px; text-align: center;
+            padding: 30px; text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            position: relative; z-index: 10;
         }
-        .step { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .step { display: none; animation: fadeIn 0.5s ease-in-out; }
         .active { display: block; }
-
-        /* Photo Slider Style */
-        .slider { width: 100%; height: 150px; border-radius: 15px; overflow: hidden; margin-bottom: 15px; position: relative; border: 1px solid #ff758c; }
-        .slider img { width: 100%; height: 100%; object-fit: cover; }
-
-        .profile-img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #ff758c; margin-bottom: 10px; object-fit: cover; }
-        .main-text { font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px; text-align: left; }
-        .pink { color: #ff758c; font-weight: 600; }
         
+        .main-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 600; color: #ff758c; }
+        .sub-text { font-size: 0.85rem; color: #ccc; margin-bottom: 25px; line-height: 1.5; text-align: left; }
+
         .btn {
             background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white; padding: 12px; border-radius: 12px; margin-bottom: 10px;
-            cursor: pointer; transition: 0.3s; font-size: 0.85rem; width: 100%; font-family: 'Poppins';
+            color: white; padding: 14px; border-radius: 15px; margin-bottom: 12px;
+            cursor: pointer; transition: 0.3s; font-size: 0.9rem; width: 100%; font-family: 'Poppins';
         }
-        .btn:active { background: #ff758c; transform: scale(0.98); }
+        .btn:active { background: #ff758c; transform: scale(0.95); }
 
-        .singer-box {
-            background: rgba(0,0,0,0.3); padding: 12px; border-radius: 15px;
-            margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);
-            display: flex; justify-content: space-between; align-items: center; cursor: pointer;
-        }
-
-        #ytPlayer { border-radius: 15px; margin-top: 10px; border: 1px solid #ff758c; width: 100%; height: 200px; background: #000; }
+        #ytPlayer { border-radius: 20px; border: 1px solid #ff758c; width: 100%; height: 210px; background: #000; margin-top: 10px; }
         textarea { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; color: white; padding: 15px; resize: none; margin-bottom: 10px; font-family: 'Poppins'; }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Floating Hearts Animation */
+        .heart { position: absolute; color: #ff758c; opacity: 0.6; animation: float 4s linear infinite; }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
+<div id="hearts-container"></div>
+
 <div class="container">
     <div id="step1" class="step active">
-        <div class="slider">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=500" alt="Memories">
+        <div style="font-size: 40px; margin-bottom: 10px;">🎁</div>
+        <div class="main-text">Happy Birthday To You <br>Pooja! 🎂</div>
+        <div class="sub-text">
+            "Pooja, aaj tumhara birthday hai isliye ye special surprise. Jo bhi hua uske liye <b>Dil se Sorry</b>. Hum dono CR hain... kya sab bhool kar ek baar phir <b>Best Friends</b> ban sakte hain?"
         </div>
-        <img class="profile-img" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
-        <div class="main-text">
-            "Yrr, jo hua uske liye <span class="pink">Dil se Sorry</span>. Aaj kal purani yaadein bahut yaad aati hain. Hum dono CR hain... kya sab bhool kar ek baar phir <span class="pink">Best Friends</span> ban sakte hain?"
-        </div>
-        <button class="btn" onclick="goStep(2)" style="background: #ff758c; font-weight: 600;">Dosti pakki! ❤️✨</button>
-        <button class="btn" onclick="showReply('Abhi gussa hoon... 😤')">Thoda gussa hoon...</button>
-        <button class="btn" onclick="showReply('Mujhe thoda waqt chahiye... 🙂')">Mujhe waqt chahiye</button>
+        
+        <button class="btn" onclick="playSong()" style="background: #ff758c; font-weight: 600;">Dosti Pakki! ❤️✨</button>
+        <button class="btn" onclick="showReply('Abhi thoda gussa hoon 😤')">Thoda gussa hoon...</button>
+        <button class="btn" onclick="showReply('Mujhe thoda waqt chahiye 🙂')">Waqt chahiye</button>
     </div>
 
     <div id="step2" class="step">
-        <p style="margin-bottom: 20px; font-size: 0.85rem; opacity: 0.8;">Unka koi sabse famous love song: 🎵</p>
-        <div class="singer-box" onclick="playMusic('Arijit Singh Best Love Songs Non-Stop')"><span>🎤 Arijit Singh</span> <span>❤️</span></div>
-        <div class="singer-box" onclick="playMusic('Talwiinder Best Romantic Aesthetic')"><span>🎤 Talwiinder</span> <span>🎧</span></div>
-        <div class="singer-box" onclick="playMusic('Kailash Kher Teri Deewani Saiyyan Official')"><span>🎤 Kailash Kher</span> <span>✨</span></div>
+        <p style="margin-bottom: 15px; font-size: 0.85rem; opacity: 0.8;">Ye suno, sirf tumhare liye: 🎵</p>
+        <div id="playerArea"></div>
+        <button class="btn" style="margin-top: 20px; background: #ff758c; font-weight: 600;" onclick="goStep(3)">Next: Dil ki baat likho ✨</button>
     </div>
 
     <div id="step3" class="step">
-        <div id="playerArea"></div>
-        <button class="btn" style="margin-top: 15px; background: #ff758c; font-weight: 600;" onclick="goStep(4)">Next: Dil ki baat likho ✨</button>
-    </div>
-
-    <div id="step4" class="step">
         <form action="https://formspree.io/f/mjggvjqa" method="POST">
             <p id="replyStatus" style="color: #ff758c; margin-bottom: 12px; font-size: 0.85rem; font-weight: 600;"></p>
-            <textarea name="message" rows="4" placeholder="Apne dil ki baat likho..." required></textarea>
+            <textarea name="message" rows="4" placeholder="Jo bhi kehna hai, yahan likh do..." required></textarea>
             <button type="submit" class="btn" style="background: #ff758c; font-weight: 600;">Send Message</button>
         </form>
     </div>
@@ -97,52 +88,29 @@
         document.getElementById('step' + n).classList.add('active');
     }
 
-    function playMusic(searchQuery) {
+    function playSong() {
         const area = document.getElementById('playerArea');
-        const embedUrl = `https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(searchQuery)}&rel=0&autoplay=1`;
-        
-        area.innerHTML = `<iframe id="ytPlayer" src="${embedUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-        goStep(3);
+        // AUR - Tu Hai Kahan Official Video Link
+        const searchQuery = "Tu Hai Kahan AUR official video";
+        area.innerHTML = `<iframe id="ytPlayer" src="https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(searchQuery)}&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        goStep(2);
     }
 
     function showReply(txt) {
         document.getElementById('replyStatus').innerText = txt;
-        goStep(4);
-    }
-</script>
-</body>
-</html>
-    <div id="step3" class="step">
-        <div id="playerArea"></div>
-        <button class="btn" style="margin-top: 15px; background: #ff758c; font-weight: 600;" onclick="goStep(4)">Next: Dil ki baat likho ✨</button>
-    </div>
-
-    <div id="step4" class="step">
-        <form action="https://formspree.io/f/mjggvjqa" method="POST">
-            <p id="replyStatus" style="color: #ff758c; margin-bottom: 12px; font-size: 0.85rem; font-weight: 600;"></p>
-            <textarea name="message" rows="4" placeholder="Jo bhi kehna hai yahan likho..." required></textarea>
-            <button type="submit" class="btn" style="background: #ff758c; font-weight: 600;">Send to Ujwal</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    function goStep(n) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('step' + n).classList.add('active');
-    }
-
-    function playYT(query) {
-        const playerDiv = document.getElementById('playerArea');
-        // specifically searching for the most popular love songs and enabling autoplay
-        playerDiv.innerHTML = `<iframe id="ytPlayer" src="https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
         goStep(3);
     }
 
-    function showReply(txt) {
-        document.getElementById('replyStatus').innerText = txt;
-        goStep(4);
-    }
+    // Creating Floating Hearts
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+        document.getElementById('hearts-container').appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }, 500);
 </script>
 </body>
 </html>
