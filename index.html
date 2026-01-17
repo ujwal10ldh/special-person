@@ -7,46 +7,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
             margin: 0; padding: 0; height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center;
-            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000);
-            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            background: radial-gradient(circle at center, #1a1a2e, #050505);
             font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
         }
-        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 30px; border-radius: 30px; backdrop-filter: blur(25px);
-            text-align: center; width: 92%; max-width: 420px; box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            animation: slideUp 1s ease-out; position: relative;
-        }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #ff758c; margin-bottom: 20px; object-fit: cover; }
-        
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 30px; border-radius: 30px;
+            backdrop-filter: blur(25px); text-align: center;
+            width: 92%; max-width: 420px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #ff758c; margin-bottom: 20px; object-fit: cover; background: #222; }
+
         .emotional-msg { font-size: 0.95rem; line-height: 1.7; text-align: left; margin-bottom: 25px; color: #f0f0f0; }
-        .highlight { color: #ff758c; font-weight: 500; }
+        .highlight { color: #ff758c; font-weight: 600; }
 
         .btn-group { display: flex; flex-direction: column; gap: 12px; }
         .mood-btn {
             background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white; padding: 14px; border-radius: 15px; cursor: pointer; transition: 0.3s;
+            color: white; padding: 14px; border-radius: 15px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
         }
-        .mood-btn:hover { background: #ff758c; transform: scale(1.02); }
+        .mood-btn:hover { background: #ff758c; transform: translateY(-2px); }
 
-        #musicSection, #ytSearchSection, #replyBox { display: none; margin-top: 20px; animation: fadeIn 0.8s ease; }
+        /* Hidden Sections */
+        #musicSection, #ytSearchSection, #replyBox { display: none; margin-top: 20px; animation: fadeIn 0.5s ease; }
+
         .music-option {
             background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
             margin-bottom: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem;
         }
         .music-option:hover { background: #ff758c; }
 
-        input[type="text"] { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; margin-bottom: 10px; }
-        #yt-player-container { margin-top: 15px; border-radius: 15px; overflow: hidden; display: none; }
-        
-        textarea { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; color: white; padding: 15px; resize: none; }
+        input[type="text"] {
+            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3); color: white; margin-bottom: 10px; font-family: 'Poppins';
+        }
+
+        #yt-player-container { margin-top: 15px; border-radius: 15px; overflow: hidden; display: none; background: #000; }
+
+        textarea { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; color: white; padding: 15px; resize: none; font-family: 'Poppins'; }
+
         .send-btn { background: linear-gradient(90deg, #ff758c, #ff7eb3); border: none; color: white; padding: 12px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: 600; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -62,33 +72,33 @@
         </div>
         <div class="btn-group">
             <button class="mood-btn" onclick="showMusic()">Dosti pakki! ❤️✨</button>
-            <button class="mood-btn" onclick="showReply('Abhi thoda gussa hoon 😤')">Thoda gussa hoon...</button>
-            <button class="mood-btn" onclick="showReply('Mujhe waqt chahiye 🙂')">Mujhe waqt chahiye</button>
+            <button class="mood-btn" onclick="goToReply('Abhi thoda gussa hoon 😤')">Thoda gussa hoon...</button>
+            <button class="mood-btn" onclick="goToReply('Mujhe waqt chahiye 🙂')">Mujhe waqt chahiye</button>
         </div>
     </div>
 
     <div id="musicSection">
-        <p style="font-size: 0.85rem; margin-bottom: 15px;">Choose your favorite singer vibe: 🎵</p>
-        <div class="music-option" onclick="loadYT('Arijit Singh Love Songs')">🎤 Arijit Singh (Soulful)</div>
-        <div class="music-option" onclick="loadYT('Talwiinder Aesthetic Songs')">🎤 Talwiinder (Vibe)</div>
-        <div class="music-option" onclick="loadYT('Kailash Kher Emotional Songs')">🎤 Kailash Kher (Deep)</div>
+        <p style="font-size: 0.85rem; margin-bottom: 15px;">Acha, pehle koi gaana sunte hain: 🎵</p>
+        <div class="music-option" onclick="loadYT('Arijit Singh Best Love Songs')">🎤 Arijit Singh Hits</div>
+        <div class="music-option" onclick="loadYT('Talwiinder Sad Romantic Songs')">🎤 Talwiinder Vibes</div>
+        <div class="music-option" onclick="loadYT('Kailash Kher Teri Deewani')">🎤 Kailash Kher Classics</div>
         <div class="music-option" onclick="showSearch()">🔍 Search Any Other Song</div>
     </div>
 
     <div id="ytSearchSection">
-        <input type="text" id="songQuery" placeholder="Song ka naam likho...">
+        <input type="text" id="songQuery" placeholder="Gaane ka naam likho...">
         <button class="send-btn" style="margin-top: 0;" onclick="loadYT()">Play Song 🎵</button>
         <div id="yt-player-container">
             <iframe id="ytPlayer" width="100%" height="180" src="" frameborder="0" allow="autoplay"></iframe>
         </div>
-        <button class="mood-btn" style="margin-top: 15px; width: 100%; font-size: 0.8rem;" onclick="showReply('Music Playing... ✨')">Next: Write Message</button>
+        <button class="mood-btn" style="margin-top: 15px; width: 100%;" onclick="goToReply('Music is playing... ✨')">Next: Message Likho</button>
     </div>
 
     <div id="replyBox">
         <form action="https://formspree.io/f/mjggvjqa" method="POST">
             <p id="statusTxt" style="color: #ff758c; font-size: 0.9rem; margin-bottom: 12px;"></p>
             <textarea name="message" rows="3" placeholder="Apne dil ki baat likho..." required></textarea>
-            <button type="submit" class="send-btn">Send & Close</button>
+            <button type="submit" class="send-btn">Send Message</button>
         </form>
     </div>
 </div>
@@ -98,233 +108,31 @@
         document.getElementById('mainSection').style.display = 'none';
         document.getElementById('musicSection').style.display = 'block';
     }
+
     function showSearch() {
         document.getElementById('musicSection').style.display = 'none';
         document.getElementById('ytSearchSection').style.display = 'block';
     }
-    function loadYT(presetQuery) {
-        const query = presetQuery || document.getElementById('songQuery').value;
-        if(!query) return alert("Song name likho!");
+
+    function loadYT(preset) {
+        const query = preset || document.getElementById('songQuery').value;
+        if(!query) return alert("Pehle song ka naam likho!");
+        
         const player = document.getElementById('ytPlayer');
         player.src = `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1`;
         document.getElementById('yt-player-container').style.display = 'block';
-        if(!presetQuery) { /* Custom search mode */ } else { showSearch(); }
+        
+        // Agar preset button click kiya hai, toh search box wala section bhi khol do player dikhane ke liye
+        if(preset) { showSearch(); }
     }
-    function showReply(txt) {
+
+    function goToReply(status) {
         document.getElementById('mainSection').style.display = 'none';
         document.getElementById('musicSection').style.display = 'none';
         document.getElementById('ytSearchSection').style.display = 'none';
         document.getElementById('replyBox').style.display = 'block';
-        document.getElementById('statusTxt').innerText = txt;
+        document.getElementById('statusTxt').innerText = status;
     }
-</script>
-</body>
-</html>    </div>
-
-    <div id="musicSection">
-        <p style="font-size: 0.85rem; margin-bottom: 15px;">Choose your favorite singer vibe: 🎵</p>
-        <div class="music-option" onclick="loadYT('Arijit Singh Love Songs')">🎤 Arijit Singh (Soulful)</div>
-        <div class="music-option" onclick="loadYT('Talwiinder Aesthetic Songs')">🎤 Talwiinder (Vibe)</div>
-        <div class="music-option" onclick="loadYT('Kailash Kher Emotional Songs')">🎤 Kailash Kher (Deep)</div>
-        <div class="music-option" onclick="showSearch()">🔍 Search Any Other Song</div>
-    </div>
-
-    <div id="ytSearchSection">
-        <input type="text" id="songQuery" placeholder="Song ka naam likho...">
-        <button class="send-btn" style="margin-top: 0;" onclick="loadYT()">Play Song 🎵</button>
-        <div id="yt-player-container">
-            <iframe id="ytPlayer" width="100%" height="180" src="" frameborder="0" allow="autoplay"></iframe>
-        </div>
-        <button class="mood-btn" style="margin-top: 15px; width: 100%; font-size: 0.8rem;" onclick="showReply('Music Playing... ✨')">Next: Write Message</button>
-    </div>
-
-    <div id="replyBox">
-        <form action="https://formspree.io/f/mjggvjqa" method="POST">
-            <p id="statusTxt" style="color: #ff758c; font-size: 0.9rem; margin-bottom: 12px;"></p>
-            <textarea name="message" rows="3" placeholder="Apne dil ki baat likho..." required></textarea>
-            <button type="submit" class="send-btn">Send & Close</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    function showMusic() {
-        document.getElementById('mainSection').style.display = 'none';
-        document.getElementById('musicSection').style.display = 'block';
-    }
-    function showSearch() {
-        document.getElementById('musicSection').style.display = 'none';
-        document.getElementById('ytSearchSection').style.display = 'block';
-    }
-    function loadYT(presetQuery) {
-        const query = presetQuery || document.getElementById('songQuery').value;
-        if(!query) return alert("Song name likho!");
-        const player = document.getElementById('ytPlayer');
-        player.src = `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1`;
-        document.getElementById('yt-player-container').style.display = 'block';
-        if(!presetQuery) { /* Custom search mode */ } else { showSearch(); }
-    }
-    function showReply(txt) {
-        document.getElementById('mainSection').style.display = 'none';
-        document.getElementById('musicSection').style.display = 'none';
-        document.getElementById('ytSearchSection').style.display = 'none';
-        document.getElementById('replyBox').style.display = 'block';
-        document.getElementById('statusTxt').innerText = txt;
-    }
-</script>
-</body>
-</html>        .highlight { color: #ff758c; font-weight: 500; }
-
-        .btn-group { display: flex; flex-direction: column; gap: 12px; }
-
-        .mood-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white; padding: 14px; border-radius: 15px;
-            cursor: pointer; transition: 0.3s; font-size: 0.95rem;
-        }
-
-        .mood-btn:hover { background: #ff758c; transform: scale(1.02); }
-
-        /* Music & Search Styles */
-        #musicSection, #ytSearchSection, #replyBox {
-            display: none; margin-top: 20px; animation: fadeIn 0.8s ease;
-        }
-
-        .music-option {
-            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px;
-            margin-bottom: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.85rem; transition: 0.3s;
-        }
-        .music-option:hover { background: #ff758c; }
-
-        input[type="text"] {
-            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.3); color: white; margin-bottom: 15px; font-family: 'Poppins';
-        }
-
-        #yt-player-container { margin-top: 15px; border-radius: 15px; overflow: hidden; display: none; }
-
-        textarea {
-            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px; color: white; padding: 15px; font-family: 'Poppins'; resize: none;
-        }
-
-        .send-btn {
-            background: linear-gradient(90deg, #ff758c, #ff7eb3); border: none; color: white;
-            padding: 12px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: 600;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .heart { position: absolute; pointer-events: none; animation: fly 3.5s linear forwards; font-size: 20px; }
-        @keyframes fly { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100vh); opacity: 0; } }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <div class="timer" id="timer">JAN 18: COUNTDOWN</div>
-
-    <div class="profile-ring">
-        <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" 
-        onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
-    </div>
-
-    <div id="mainSection">
-        <div class="emotional-msg">
-            "Yrr, jo hua uske liye <span class="highlight">Dil se Sorry</span>. 
-            <br><br>
-            <span class="highlight">10th khatam hone wali hai</span>, aur school ki ye yaadein hamesha ke liye hain. Main nahi chahta hamari dosti aise khatam ho. Hum dono CR hain... kya sab bhool kar ek baar phir <span class="highlight">Best Friends</span> ban sakte hain?"
-        </div>
-        <div class="btn-group">
-            <button class="mood-btn" onclick="showMusic()">Theek hai, dosti pakki! ❤️✨</button>
-            <button class="mood-btn" onclick="showReply('Abhi thoda gussa hoon 😤')">Gussa hoon abhi...</button>
-        </div>
-    </div>
-
-    <div id="musicSection">
-        <p style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">Choose a vibe for the mood: 🎵</p>
-        <div class="music-option" onclick="playNative('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')">🎹 Soft Piano</div>
-        <div class="music-option" onclick="playNative('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')">🎧 Healing Lofi</div>
-        <div class="music-option" onclick="showSearch()">🔍 Search Your Own Song (YouTube)</div>
-    </div>
-
-    <div id="ytSearchSection">
-        <input type="text" id="songQuery" placeholder="Type song name (e.g. 'Arijit Singh')">
-        <button class="send-btn" style="margin-top: 0;" onclick="loadYT()">Play on YouTube 🎵</button>
-        <div id="yt-player-container">
-            <iframe id="ytPlayer" width="100%" height="180" src="" frameborder="0" allow="autoplay"></iframe>
-        </div>
-        <button class="mood-btn" style="margin-top: 15px; width: 100%; font-size: 0.8rem;" onclick="showReply('Music Loaded ✨')">Next: Leave a Message</button>
-    </div>
-
-    <div id="replyBox">
-        <form action="https://formspree.io/f/mjggvjqa" method="POST">
-            <p id="statusTxt" style="color: #ff758c; font-size: 0.9rem; margin-bottom: 12px;"></p>
-            <textarea name="message" rows="3" placeholder="Apne dil ki baat yahan likho..." required></textarea>
-            <button type="submit" class="send-btn">Send to Ujwal</button>
-        </form>
-    </div>
-</div>
-
-<audio id="audioPlayer" loop></audio>
-
-<script>
-    function showMusic() {
-        document.getElementById('mainSection').style.display = 'none';
-        document.getElementById('musicSection').style.display = 'block';
-    }
-
-    function showSearch() {
-        document.getElementById('musicSection').style.display = 'none';
-        document.getElementById('ytSearchSection').style.display = 'block';
-    }
-
-    function playNative(url) {
-        const audio = document.getElementById('audioPlayer');
-        audio.src = url; audio.play();
-        showReply('Dosti Mubarak! ❤️');
-        spawnHearts();
-    }
-
-    function loadYT() {
-        const query = document.getElementById('songQuery').value;
-        if(!query) return alert("Kuch toh likho!");
-        const player = document.getElementById('ytPlayer');
-        player.src = `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1`;
-        document.getElementById('yt-player-container').style.display = 'block';
-        spawnHearts();
-    }
-
-    function showReply(txt) {
-        document.querySelectorAll('.card > div:not(.timer):not(.profile-ring)').forEach(div => div.style.display = 'none');
-        document.getElementById('replyBox').style.display = 'block';
-        document.getElementById('statusTxt').innerText = txt;
-    }
-
-    function spawnHearts() {
-        for(let i=0; i<15; i++) {
-            setTimeout(() => {
-                const h = document.createElement('div');
-                h.className = 'heart'; h.innerHTML = '❤️';
-                h.style.left = Math.random() * 90 + 5 + 'vw';
-                h.style.top = '100vh';
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 3500);
-            }, i * 200);
-        }
-    }
-
-    // Timer Logic
-    const target = new Date('January 18, 2026 00:00:00').getTime();
-    setInterval(() => {
-        const diff = target - new Date().getTime();
-        const d = Math.floor(diff / (1000*60*60*24));
-        const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-        const m = Math.floor((diff%(1000*60*60))/(1000*60));
-        const s = Math.floor((diff%(1000*60))/1000);
-        document.getElementById('timer').innerText = `${d}D : ${h}H : ${m}M : ${s}S UNTIL 18 JAN`;
-    }, 1000);
 </script>
 
 </body>
