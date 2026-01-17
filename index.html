@@ -119,6 +119,60 @@
     }
 </script>
 </body>
+</html>    </div>
+
+    <div id="musicSection">
+        <p style="font-size: 0.85rem; margin-bottom: 15px;">Choose your favorite singer vibe: 🎵</p>
+        <div class="music-option" onclick="loadYT('Arijit Singh Love Songs')">🎤 Arijit Singh (Soulful)</div>
+        <div class="music-option" onclick="loadYT('Talwiinder Aesthetic Songs')">🎤 Talwiinder (Vibe)</div>
+        <div class="music-option" onclick="loadYT('Kailash Kher Emotional Songs')">🎤 Kailash Kher (Deep)</div>
+        <div class="music-option" onclick="showSearch()">🔍 Search Any Other Song</div>
+    </div>
+
+    <div id="ytSearchSection">
+        <input type="text" id="songQuery" placeholder="Song ka naam likho...">
+        <button class="send-btn" style="margin-top: 0;" onclick="loadYT()">Play Song 🎵</button>
+        <div id="yt-player-container">
+            <iframe id="ytPlayer" width="100%" height="180" src="" frameborder="0" allow="autoplay"></iframe>
+        </div>
+        <button class="mood-btn" style="margin-top: 15px; width: 100%; font-size: 0.8rem;" onclick="showReply('Music Playing... ✨')">Next: Write Message</button>
+    </div>
+
+    <div id="replyBox">
+        <form action="https://formspree.io/f/mjggvjqa" method="POST">
+            <p id="statusTxt" style="color: #ff758c; font-size: 0.9rem; margin-bottom: 12px;"></p>
+            <textarea name="message" rows="3" placeholder="Apne dil ki baat likho..." required></textarea>
+            <button type="submit" class="send-btn">Send & Close</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function showMusic() {
+        document.getElementById('mainSection').style.display = 'none';
+        document.getElementById('musicSection').style.display = 'block';
+    }
+    function showSearch() {
+        document.getElementById('musicSection').style.display = 'none';
+        document.getElementById('ytSearchSection').style.display = 'block';
+    }
+    function loadYT(presetQuery) {
+        const query = presetQuery || document.getElementById('songQuery').value;
+        if(!query) return alert("Song name likho!");
+        const player = document.getElementById('ytPlayer');
+        player.src = `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1`;
+        document.getElementById('yt-player-container').style.display = 'block';
+        if(!presetQuery) { /* Custom search mode */ } else { showSearch(); }
+    }
+    function showReply(txt) {
+        document.getElementById('mainSection').style.display = 'none';
+        document.getElementById('musicSection').style.display = 'none';
+        document.getElementById('ytSearchSection').style.display = 'none';
+        document.getElementById('replyBox').style.display = 'block';
+        document.getElementById('statusTxt').innerText = txt;
+    }
+</script>
+</body>
 </html>        .highlight { color: #ff758c; font-weight: 500; }
 
         .btn-group { display: flex; flex-direction: column; gap: 12px; }
