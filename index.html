@@ -3,94 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A Special Surprise for You ✨</title>
+    <title>A Special Surprise ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        /* Same Original Professional Styling */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center;
-            background: #020205; background-image: radial-gradient(circle at 20% 20%, rgba(255, 117, 140, 0.15), transparent), radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.15), transparent);
-            font-family: 'Poppins', sans-serif; color: white; overflow: hidden;
+            height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+            background: #050505;
+            background-image: radial-gradient(circle at 50% 50%, rgba(26, 26, 46, 0.9), #050505);
+            font-family: 'Poppins', sans-serif;
+            color: white; overflow: hidden;
+            position: relative;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 35px; padding: 35px 20px;
-            width: 90%; max-width: 380px; text-align: center; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9); z-index: 10;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            padding: 40px 25px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            z-index: 10;
         }
 
-        .badge { background: linear-gradient(90deg, #ff758c, #ff7eb3); padding: 5px 15px; border-radius: 20px; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; display: inline-block; }
+        .badge {
+            background: rgba(255, 117, 140, 0.15);
+            border: 1px solid rgba(255, 117, 140, 0.4);
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            display: inline-block;
+            color: #ff758c;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
 
-        .profile-container { width: 100px; height: 100px; margin: 0 auto 20px; padding: 4px; border-radius: 50%; background: linear-gradient(45deg, #ff758c, #00d4ff); animation: rotate 4s linear infinite; }
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
-        .profile-pic { width: 100%; height: 100%; border-radius: 50%; background: #000; border: 3px solid #050505; object-fit: cover; }
+        .profile-container {
+            width: 100px; height: 100px;
+            margin: 0 auto 25px;
+            padding: 4px;
+            background: linear-gradient(45deg, #ff758c, #00d4ff);
+            border-radius: 50%;
+            animation: spin 4s linear infinite;
+        }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; margin-bottom: 10px; color: #ff758c; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .profile-pic {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            background: #111;
+            border: 4px solid #050505;
+            object-fit: cover;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; margin-bottom: 15px; color: #ff758c; }
         
-        .message { font-size: 0.8rem; line-height: 1.6; color: rgba(255,255,255,0.8); margin-bottom: 25px; text-align: left; min-height: 110px; }
+        .message {
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 30px;
+            text-align: left;
+            min-height: 160px; /* Space for typing effect */
+        }
 
-        /* Modern 3-Option Buttons */
-        .btn { width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 18px; border: none; cursor: pointer; font-family: 'Poppins'; font-size: 0.85rem; font-weight: 600; transition: 0.3s; color: white; }
-        .btn-main { background: linear-gradient(90deg, #ff758c, #ff7eb3); box-shadow: 0 8px 15px rgba(255, 117, 140, 0.3); }
-        .btn-outline { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn {
+            width: 100%; padding: 15px;
+            margin-bottom: 12px; border-radius: 16px;
+            border: none; cursor: pointer;
+            font-family: 'Poppins'; font-size: 0.9rem;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white; font-weight: 600;
+        }
 
-        /* Song Selection List */
-        .song-list { display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; scrollbar-width: none; }
+        .btn-main {
+            background: linear-gradient(90deg, #ff758c, #ff7eb3);
+            box-shadow: 0 10px 20px rgba(255, 117, 140, 0.3);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Song Selection List Style */
+        .song-list { display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; margin-bottom: 10px; scrollbar-width: none; }
         .song-list::-webkit-scrollbar { display: none; }
-        .song-btn { flex: 0 0 auto; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 20px; font-size: 0.75rem; border: 1px solid rgba(255,117,140,0.3); cursor: pointer; color: #ff758c; }
+        .song-btn { flex: 0 0 auto; background: rgba(255,255,255,0.08); padding: 8px 15px; border-radius: 20px; font-size: 0.72rem; border: 1px solid rgba(255,117,140,0.2); cursor: pointer; color: #ff758c; }
 
         .step { display: none; }
-        .active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
+        .active { display: block; animation: slideUp 0.6s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        #ytWrap { border-radius: 20px; overflow: hidden; border: 1px solid #ff758c; margin-top: 15px; background: #000; }
-        .floating { position: absolute; bottom: -10%; pointer-events: none; animation: floatUp 6s linear infinite; }
+        #ytWrap { border-radius: 20px; overflow: hidden; border: 1px solid #ff758c; margin-top: 5px; background: #000; }
+        iframe { width: 100%; height: 210px; display: block; }
+
+        .heart {
+            position: absolute; bottom: -10%;
+            font-size: 20px; color: #ff758c;
+            opacity: 0.5; animation: floatUp 5s linear infinite;
+        }
         @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+
+        textarea {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px; color: white; padding: 15px; resize: none; margin-bottom: 10px; font-family: 'Poppins';
+        }
     </style>
 </head>
 <body>
 
-<div id="particles"></div>
+<div id="heartBox"></div>
 
 <div class="card">
     <div id="step1" class="step active">
-        <div class="badge">HAPPY BIRTHDAY ✨</div>
-        <div class="profile-container"><img class="profile-pic" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"></div>
-        <h1>For Someone Special...</h1>
+        <div class="badge">Happy Birthday ✨</div>
+        <div class="profile-container">
+            <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+        </div>
+        <h1>For My CR Partner...</h1>
         <div class="message" id="typewriter"></div>
         
-        <button class="btn btn-main" onclick="goStep(2, 'Pakki Dosti ❤️')">1. Sab bhool kar dosti pakki? ❤️</button>
-        <button class="btn btn-outline" onclick="goStep(2, 'Thinking... 🙂')">2. Maaf karungi, par thoda waqt chahiye 😤</button>
-        <button class="btn btn-outline" onclick="showDirectReply('Just a Wish 🎁')">3. Bas birthday wish accept karo 🙂</button>
+        <button class="btn btn-main" onclick="goStep(2, 'Pakki Dosti ❤️')">Theek hai, dosti pakki! ❤️</button>
+        <button class="btn btn-outline" onclick="goStep(2, 'Thinking... 🙂')">Thoda gussa hoon 😤</button>
+        <button class="btn btn-outline" onclick="showDirectReply('Just a Wish 🎁')">Mujhe waqt chahiye 🙂</button>
     </div>
 
     <div id="step2" class="step">
-        <p style="font-size: 0.8rem; margin-bottom: 15px; color:#ff758c;">Choose your mood, listen to the vibe 🎵</p>
+        <p style="margin-bottom: 10px; font-size: 0.75rem; color: #ff758c;">Sunno... Choose your vibe 🎵</p>
         <div class="song-list">
             <div class="song-btn" onclick="playSong('AX6OrbgS8lI')">Tu Hai Kahan</div>
             <div class="song-btn" onclick="playSong('AUNV398t_30')">Sunniya Sunniya</div>
             <div class="song-btn" onclick="playSong('vS6-pGv6yYk')">Apa Fer Milage</div>
             <div class="song-btn" onclick="playSong('M576zZ_r7_U')">Shikayat</div>
+            <div class="song-btn" onclick="playSong('S6_mY97P-Kk')">Softy</div>
             <div class="song-btn" onclick="playSong('8mY6m7M-68Y')">Haseen</div>
-            <div class="song-btn" onclick="playSong('S6_mY97P-Kk')">Softy (Aujla)</div>
         </div>
         <div id="ytWrap"></div>
-        <button class="btn btn-main" style="margin-top: 20px;" onclick="goStep(3)">Write Your Reply ✨</button>
+        <button class="btn btn-main" style="margin-top: 15px;" onclick="goStep(3)">Write Your Reply ✨</button>
     </div>
 
     <div id="step3" class="step">
         <form action="https://formspree.io/f/mjggvjqa" method="POST">
             <p id="statusTxt" style="color: #ff758c; margin-bottom: 10px; font-size: 0.8rem; font-weight: 600;"></p>
-            <textarea name="message" rows="5" placeholder="Tumhare dil mein jo bhi hai, yahan keh do..." style="width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:15px; color:white; margin-bottom:10px; font-family:'Poppins'; resize:none;"></textarea>
+            <textarea name="message" rows="5" placeholder="Tumhare dil mein jo bhi hai..." required></textarea>
             <button type="submit" class="btn btn-main">Send Message</button>
         </form>
     </div>
 </div>
 
 <script>
-    // Psychological Message Typing
-    const text = "Aaj tumhara birthday hai, aur main nahi chahta hamari 'CR Wali Team' ek galti ki wajah se toot jaye. Humne class sambhali hai, ek dusre ko samjha hai... kya hamari dosti is gusse se badi nahi? I really miss our vibe. Kya aaj sab bhool kar ek fresh start kar sakte hain?";
+    // New Psychological Message with Typewriter
+    const text = "Yrr main dil se maafi mangta hoon... I'm really sorry. Shayad main pehle itna mature nahi tha ki sab kuch handle kar sakun, aur tum mujhse sahi se baat bhi nahi karti. Hum dono CR hain, hamari dosti special honi chahiye thi. 10th khatam hone wali hai aur phir shayad hum 10th ke baad na mil sakein... kya hum ye sab bhool kar ek baar phir dosti nahi kar sakte? Aaj tumhare birthday par itna toh maang hi sakta hoon.";
+    
     let i = 0;
     function type() { if (i < text.length) { document.getElementById("typewriter").innerHTML += text.charAt(i); i++; setTimeout(type, 35); } }
     window.onload = type;
@@ -112,16 +188,16 @@
         wrap.innerHTML = `<iframe width="100%" height="210" src="https://www.youtube-nocookie.com/embed/${vid}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     }
 
-    function createIcon() {
-        const icon = document.createElement('div');
-        icon.className = 'floating';
-        icon.innerHTML = ['❤️', '🎈', '✨', '🎂'][Math.floor(Math.random()*4)];
-        icon.style.left = Math.random() * 100 + "vw";
-        icon.style.animationDuration = Math.random() * 3 + 4 + "s";
-        document.getElementById('particles').appendChild(icon);
-        setTimeout(() => icon.remove(), 5000);
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        document.getElementById('heartBox').appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
     }
-    setInterval(createIcon, 400);
+    setInterval(createHeart, 400);
 </script>
 </body>
 </html>
