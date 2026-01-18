@@ -3,207 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A Special Surprise ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Surprise for You ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        /* Base Reset */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body {
             height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center;
-            background: #050505;
-            background-image: radial-gradient(circle at 50% 50%, rgba(26, 26, 46, 0.9), #050505);
+            background: #020205;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 117, 140, 0.15), transparent),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.15), transparent);
             font-family: 'Poppins', sans-serif;
             color: white; overflow: hidden;
-            position: relative;
         }
 
-        /* Glassmorphism Card (Nano Style) */
+        /* Glassmorphism Card */
         .card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 32px;
+            border-radius: 40px;
             padding: 40px 25px;
-            width: 90%;
-            max-width: 380px;
+            width: 90%; max-width: 380px;
             text-align: center;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
             z-index: 10;
             position: relative;
         }
 
-        /* Glow Tag */
         .badge {
-            background: rgba(255, 117, 140, 0.15);
-            border: 1px solid rgba(255, 117, 140, 0.4);
-            padding: 6px 16px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            display: inline-block;
-            color: #ff758c;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            font-weight: 600;
-            text-transform: uppercase;
+            background: linear-gradient(90deg, #ff758c, #00d4ff);
+            padding: 4px 15px; border-radius: 20px;
+            font-size: 0.6rem; color: white;
+            margin-bottom: 20px; display: inline-block;
+            text-transform: uppercase; font-weight: 700;
+            letter-spacing: 2px; box-shadow: 0 5px 15px rgba(255,117,140,0.3);
         }
 
-        /* Animated Profile Ring */
-        .profile-container {
-            width: 100px; height: 100px;
-            margin: 0 auto 25px;
-            position: relative;
-            padding: 4px;
-            background: linear-gradient(45deg, #ff758c, #00d4ff);
-            border-radius: 50%;
-            animation: spin 4s linear infinite;
+        .profile-ring {
+            width: 110px; height: 110px;
+            margin: 0 auto 25px; position: relative;
+            padding: 4px; border-radius: 50%;
+            background: conic-gradient(#ff758c, #ff7eb3, #00d4ff, #ff758c);
+            animation: rotate 3s linear infinite;
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
 
         .profile-pic {
             width: 100%; height: 100%;
-            border-radius: 50%;
-            background: #111;
-            border: 4px solid #050505;
-            object-fit: cover;
-            transform: rotate(-360deg); /* Counter-rotate to keep image straight */
-            animation: spin-reverse 4s linear infinite;
+            border-radius: 50%; background: #000;
+            border: 4px solid #050505; object-fit: cover;
         }
-        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
 
-        h1 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
+        h1 { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2rem; margin-bottom: 10px; 
+            background: linear-gradient(to right, #ff758c, #00d4ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
         
         .message {
-            font-size: 0.85rem;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 30px;
-            text-align: left;
+            font-size: 0.8rem; line-height: 1.8;
+            color: rgba(255,255,255,0.7); margin-bottom: 30px;
+            min-height: 60px;
         }
 
-        .pink { color: #ff758c; font-weight: 600; }
+        /* Neon Progress Bar */
+        .music-bar {
+            width: 100%; height: 4px; background: rgba(255,255,255,0.1);
+            border-radius: 10px; margin-top: 15px; overflow: hidden;
+        }
+        .music-progress {
+            width: 0%; height: 100%; 
+            background: linear-gradient(90deg, #ff758c, #00d4ff);
+            box-shadow: 0 0 10px #ff758c;
+        }
 
-        /* Modern Buttons */
         .btn {
-            width: 100%; padding: 15px;
-            margin-bottom: 12px; border-radius: 16px;
-            border: none; cursor: pointer;
-            font-family: 'Poppins'; font-size: 0.9rem;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%; padding: 16px; margin-bottom: 12px; 
+            border-radius: 20px; border: none; cursor: pointer;
+            font-family: 'Poppins'; font-size: 0.9rem; font-weight: 600;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white;
         }
 
         .btn-main {
             background: linear-gradient(90deg, #ff758c, #ff7eb3);
-            color: white; font-weight: 600;
             box-shadow: 0 10px 20px rgba(255, 117, 140, 0.3);
         }
 
         .btn-outline {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
         }
 
-        .btn:active { transform: scale(0.94); }
+        .btn:hover { transform: translateY(-5px); brightness: 1.2; }
 
-        /* Transitions */
         .step { display: none; }
-        .active { display: block; animation: slideUp 0.6s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .active { display: block; animation: zoomIn 0.6s ease; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } }
 
-        /* Media Player */
-        #ytWrap { border-radius: 20px; overflow: hidden; border: 1px solid #ff758c; margin-top: 10px; background: #000; }
-        iframe { width: 100%; height: 210px; display: block; }
+        #ytWrap { border-radius: 25px; overflow: hidden; border: 1px solid rgba(255,117,140,0.5); margin-top: 15px; }
 
-        /* Floating Hearts */
-        .heart {
-            position: absolute;
-            bottom: -10%;
-            font-size: 20px;
-            color: #ff758c;
-            opacity: 0.5;
-            animation: float Up 5s linear infinite;
+        .floating-icon {
+            position: absolute; bottom: -10%; pointer-events: none;
+            z-index: 1; animation: floatUp 6s linear infinite;
         }
-        @keyframes floatUp {
-            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        @keyframes floatUp { 
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
 
         textarea {
-            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 18px; color: white; padding: 15px; resize: none; margin-bottom: 10px; font-family: 'Poppins';
+            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px; color: white; padding: 15px; resize: none; margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-<div id="heartBox"></div>
+<div id="particles"></div>
 
 <div class="card">
     <div id="step1" class="step active">
-        <div class="badge">Happy Birthday ✨</div>
-        <div class="profile-container">
-            <img class="profile-pic" src="https://cdn-image.notjustanalytics.com/https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/474016993_587489884078653_6789317626583202244_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QHMBQ0ljP8N87_KYAdLwDZlog65Brpsg1X9-e0il9kAPeqkg2ep83ysuqZjwnnCZXQ&_nc_ohc=y_2HuwNWC6cQ7kNvwGYWJim&_nc_gid=c6kOZEpqJuvVLXugaaSfuA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfoA8D7Kq6xSqIdZWgL9sEiKnNXxB8ExQPgq186MbRqAFQ&oe=696C239E&_nc_sid=8b3546" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+        <div class="badge">18 January Special ✨</div>
+        <div class="profile-ring">
+            <img class="profile-pic" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
         </div>
-        <h1>For Someone Special 🎁</h1>
-        <p class="message">
-            Jo bhi hua uske liye <span class="pink">Dil se Sorry</span>. Aaj tumhara birthday hai, main nahi chahta hamari dosti aise khatam ho. Hum dono CR hain... kya sab bhool kar ek baar phir <span class="pink">Best Friends</span> ban sakte hain?
-        </p>
-        <button class="btn btn-main" onclick="playSong()">Theek hai, dosti pakki! ❤️</button>
+        <h1>Happy Birthday! 🎂</h1>
+        <div class="message" id="typewriter"></div>
+        
+        <button class="btn btn-main" onclick="celebrateNow()">Unlock Your Gift 🎁</button>
         <button class="btn btn-outline" onclick="showReply('Thoda gussa hoon 😤')">Thoda gussa hoon...</button>
-        <button class="btn btn-outline" onclick="showReply('Mujhe waqt chahiye 🙂')">Mujhe waqt chahiye</button>
     </div>
 
     <div id="step2" class="step">
-        <p style="margin-bottom: 15px; font-size: 0.8rem; color: #ff758c;">Sunno... sirf tumhare liye 🎵</p>
+        <h2 style="font-size: 1rem; margin-bottom: 10px;">Sunno... Tu Hai Kahan 🎵</h2>
         <div id="ytWrap"></div>
-        <button class="btn btn-main" style="margin-top: 25px;" onclick="goStep(3)">Write Your Reply ✨</button>
+        <div class="music-bar"><div class="music-progress" id="pBar"></div></div>
+        <button class="btn btn-main" style="margin-top: 25px;" onclick="goStep(3)">Send Your Reply ✨</button>
     </div>
 
     <div id="step3" class="step">
         <form action="https://formspree.io/f/mjggvjqa" method="POST">
             <p id="replyStatus" style="color: #ff758c; margin-bottom: 15px; font-size: 0.85rem; font-weight: 600;"></p>
-            <textarea name="message" rows="5" placeholder="Write your heart out here..." required></textarea>
-            <button type="submit" class="btn btn-main">Send Message</button>
+            <textarea name="message" rows="5" placeholder="Aaj ke din jo bhi kehna hai..." required></textarea>
+            <button type="submit" class="btn btn-main">Send Birthday Wish</button>
         </form>
     </div>
 </div>
 
 <script>
-    // Navigation
+    // 1. Typing Effect
+    const text = "Jo bhi hua uske liye Dil se Sorry. Aaj tumhara birthday hai... kya hum saari kadwahat bhool kar phir se Best Friends ban sakte hain?";
+    let i = 0;
+    function typeEffect() {
+        if (i < text.length) {
+            document.getElementById("typewriter").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeEffect, 40);
+        }
+    }
+    window.onload = typeEffect;
+
     function goStep(n) {
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById('step' + n).classList.add('active');
     }
 
-    // Song Loader
-    function playSong() {
-        const wrap = document.getElementById('ytWrap');
-        const query = "Tu Hai Kahan AUR official video";
-        wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    function celebrateNow() {
+        // Confetti Cannons
+        const count = 200, defaults = { origin: { y: 0.7 } };
+        function fire(particleRatio, opts) {
+            confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(count * particleRatio) }));
+        }
+        fire(0.25, { spread: 26, startVelocity: 55 });
+        fire(0.2, { spread: 60 });
+        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+
+        // Load Music
+        const videoId = "AX6OrbgS8lI"; 
+        document.getElementById('ytWrap').innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        
         goStep(2);
+        
+        // Progress Bar Animation
+        let width = 0;
+        const bar = document.getElementById("pBar");
+        setInterval(() => {
+            if (width < 100) { width += 0.5; bar.style.width = width + "%"; }
+        }, 1000);
     }
 
-    // Handle Replies
     function showReply(txt) {
         document.getElementById('replyStatus').innerText = txt;
         goStep(3);
     }
 
-    // Heart Animation
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-        heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
-        document.getElementById('heartBox').appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
+    // Floating 3D Icons
+    function createIcon() {
+        const icons = ['❤️', '🎈', '✨', '🎂', '🎁', '🌸'];
+        const icon = document.createElement('div');
+        icon.className = 'floating-icon';
+        icon.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+        icon.style.left = Math.random() * 100 + "vw";
+        icon.style.fontSize = Math.random() * 20 + 20 + "px";
+        icon.style.animationDuration = Math.random() * 3 + 4 + "s";
+        document.getElementById('particles').appendChild(icon);
+        setTimeout(() => icon.remove(), 6000);
     }
-    setInterval(createHeart, 400);
+    setInterval(createIcon, 300);
 </script>
 
 </body>
